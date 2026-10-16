@@ -1,6 +1,6 @@
 # TraceFrame Safety Lab — End-to-End Implementation Plan
 
-Planning date: October 15, 2026. Reviewed and revised October 16, 2026, America/Los_Angeles. Status: completed planning package; runtime implementation and research experiments are future work.
+Planning date: October 15, 2026. Reviewed and revised October 16, 2026, America/Los_Angeles. Status: completed planning package; research experiments are future work.
 
 Implementation began October 16, 2026. This document preserves the reviewed target design; see [implementation status](docs/IMPLEMENTATION_STATUS.md) for working foundation commands, validation evidence, and open gates.
 

@@ -54,6 +54,10 @@ def freeze_input_bundle(
                 target.write_bytes((bundle / name).read_bytes())
             if validate_public_bundle(staging) != snapshot:
                 raise ValueError("Input changed while capturing snapshot")
+            # Linux bind mounts keep host modes, and the worker's fixed UID is not the
+            # host owner; mkdtemp (and a strict umask) would leave this owner-only.
+            for path in (staging, *staging.rglob("*")):
+                path.chmod(0o755 if path.is_dir() else 0o644)
             try:
                 staging.rename(destination)
             except OSError:

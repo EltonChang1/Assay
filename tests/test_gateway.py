@@ -1,4 +1,6 @@
 import hashlib
+import os
+import stat
 
 import pytest
 
@@ -57,6 +59,19 @@ def test_gateway_captures_host_receipt_and_full_durable_evidence(tmp_path, monke
     repeated = service.execute_query(query, frozen, state=state)
     assert repeated.receipt.execution_id != receipt.execution_id
     assert repeated.receipt.run_id != receipt.run_id
+
+
+@pytest.mark.skipif(os.name != "posix", reason="POSIX modes reach the worker via its bind mount")
+def test_frozen_snapshot_is_readable_by_the_worker_uid_under_a_private_umask(tmp_path):
+    source = tmp_path / "source"
+    write_public_bundle(generate_sales_fixture(), source)
+    previous = os.umask(0o077)
+    try:
+        frozen, _, _ = service.freeze_input_bundle(source, tmp_path / "evidence")
+    finally:
+        os.umask(previous)
+    for path in (frozen, *frozen.rglob("*")):
+        assert stat.S_IMODE(path.stat().st_mode) == (0o755 if path.is_dir() else 0o644), path
 
 
 def test_runner_supplied_run_id_groups_queries_and_is_validated_before_dispatch(
