@@ -22,10 +22,10 @@ from pydantic import ValidationError
 from safety_lab.contracts import DatasetSnapshot, TaskSpec, VersionedModel, canonical_json_bytes
 from safety_lab.contracts.execution import ExecutionReceipt, WorkerSuccess
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 
-# Version 2 adds publisher-owned indexes. Immutable record bytes stay in
-# artifacts; these rows hold only identities, current state, and validity.
+# Version 2 adds publisher-owned indexes; version 3 adds bound reviews. Immutable
+# record bytes stay in artifacts; rows hold only identities, state, and validity.
 _PUBLICATION_SCHEMA = (
     "CREATE TABLE IF NOT EXISTS source_registry ("
     "source_key TEXT PRIMARY KEY, active_snapshot_id TEXT NOT NULL, "
@@ -78,6 +78,10 @@ _PUBLICATION_SCHEMA = (
     "CREATE TABLE IF NOT EXISTS latest_releases ("
     "report_id TEXT PRIMARY KEY, release_id TEXT NOT NULL UNIQUE, "
     "FOREIGN KEY (release_id) REFERENCES releases(release_id))",
+    "CREATE TABLE IF NOT EXISTS reviews ("
+    "revision_id TEXT PRIMARY KEY, review_sha256 TEXT NOT NULL, "
+    "FOREIGN KEY (revision_id) REFERENCES report_revisions(revision_id), "
+    "FOREIGN KEY (review_sha256) REFERENCES artifacts(sha256))",
 )
 
 

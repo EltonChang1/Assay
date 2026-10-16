@@ -20,6 +20,7 @@ from uuid import uuid4
 from pydantic import Field
 
 from safety_lab.contracts import DatasetSnapshot, TaskSpec, VersionedModel, canonical_json_bytes
+from safety_lab.contracts.policy import PolicyProfile
 from safety_lab.contracts.report import (
     ApprovalRecord,
     AuditBundle,
@@ -31,14 +32,16 @@ from safety_lab.contracts.report import (
     ReleaseRecord,
     ReportRevision,
 )
+from safety_lab.contracts.review import ReviewDecision, ReviewTranscript
 from safety_lab.contracts.task import Identifier, NonEmpty
 from safety_lab.evidence.store import EvidenceIntegrityError, EvidenceStore
 from safety_lab.verification import CHECKER_VERSION, required_check_keys, verify_report
 
 from .rendering import render_report
 
-POLICY_VERSION = "publication-policy-1.0"
-PolicyProfile = Literal["checked", "baseline"]
+POLICY_VERSION = "publication-policy-1.1"
+REVIEWED_PROFILES = frozenset({"reviewed", "checked_reviewed"})
+CHECKED_PROFILES = frozenset({"checked", "checked_reviewed"})
 PolicyOutcome = Literal["approved", "rejected", "needs_review"]
 Validity = Literal["current", "stale", "historical"]
 _PENDING = ("submitted", "checked", "approved")
@@ -123,13 +126,20 @@ def _now() -> datetime:
 
 
 def evaluate_policy(
-    report: ReportRevision, checks: CheckBundle, profile: PolicyProfile
+    report: ReportRevision,
+    checks: CheckBundle,
+    profile: PolicyProfile,
+    review: ReviewDecision | None = None,
 ) -> tuple[PolicyOutcome, tuple[str, ...]]:
     """Apply the frozen release rule; absent or duplicated checks never pass.
 
-    Host integrity is mandatory in every profile and cannot be overridden. The
-    ``checked`` profile also requires every research check to pass; ``baseline``
-    (arm A) records them without using them. Advisory checks never authorize.
+    Host integrity is mandatory in every profile and cannot be overridden.
+    ``checked`` and ``checked_reviewed`` also require every research check;
+    ``baseline`` (arm A) and ``reviewed`` (arm C) record them without using
+    them. Reviewed profiles additionally require an explicit reviewer ``allow``
+    bound to these report bytes; reject rejects, anything else withholds. A
+    reviewer can never override a failed or unknown mandatory check, and
+    advisory checks never authorize.
     """
 
     if checks.report_sha256 != _digest(report) or checks.report_revision_id != report.revision_id:
@@ -137,7 +147,7 @@ def evaluate_policy(
     required = {
         key
         for key in required_check_keys(report)
-        if profile == "checked" or key[0] == "host_integrity"
+        if profile in CHECKED_PROFILES or key[0] == "host_integrity"
     }
     found: dict[tuple[str, str, str | None], list[str]] = {}
     reasons: list[str] = []
@@ -160,6 +170,23 @@ def evaluate_policy(
             failed = True
         elif outcomes[0] == "unknown":
             reasons.append(f"unknown:{label}")
+            unknown = True
+    if profile in REVIEWED_PROFILES:
+        if review is None:
+            reasons.append("review:missing")
+            unknown = True
+        elif (
+            review.report_sha256 != _digest(report)
+            or review.report_revision_id != report.revision_id
+            or review.checks_visible != (profile in CHECKED_PROFILES)
+        ):
+            reasons.append("review:binding")
+            unknown = True
+        elif review.decision == "reject":
+            reasons.append("review:reject")
+            failed = True
+        elif review.decision != "allow":
+            reasons.append(f"review:{review.decision}")
             unknown = True
     outcome: PolicyOutcome = "rejected" if failed else "needs_review" if unknown else "approved"
     return outcome, tuple(reasons)
@@ -449,6 +476,49 @@ class Publisher:
             self.evidence._record_event(connection, "report.checked", bundle_sha256)
         return bundle
 
+    def record_review(
+        self,
+        lease: AttemptLease,
+        revision_id: str,
+        review: ReviewDecision,
+        transcript: ReviewTranscript,
+    ) -> str:
+        """Bind one reviewer decision and its transcript to a checked revision."""
+
+        review = ReviewDecision.model_validate(review.model_dump())
+        transcript = ReviewTranscript.model_validate(transcript.model_dump())
+        with self.evidence.transaction() as connection:
+            row = self._owned_revision(connection, lease, revision_id, "checked")
+            if (
+                review.report_revision_id,
+                review.report_sha256,
+                review.transcript_sha256,
+            ) != (revision_id, row.report_sha256, _digest(transcript)) or (
+                transcript.revision_id != revision_id
+            ):
+                raise PublicationError("review is not bound to this revision and transcript")
+            if connection.execute(
+                "SELECT 1 FROM reviews WHERE revision_id = ?", (revision_id,)
+            ).fetchone():
+                raise InvalidTransitionError("revision already has a recorded review")
+            transcript_sha256 = self.evidence._put_model(connection, transcript)
+            review_sha256 = self.evidence._put_model(connection, review)
+            connection.execute(
+                "INSERT INTO reviews(revision_id, review_sha256) VALUES (?, ?)",
+                (revision_id, review_sha256),
+            )
+            self.evidence._add_dependency(connection, row.report_sha256, review_sha256)
+            self.evidence._add_dependency(connection, transcript_sha256, review_sha256)
+            self.evidence._record_event(connection, "report.reviewed", review_sha256)
+        return review_sha256
+
+    @staticmethod
+    def _review_sha256(connection: sqlite3.Connection, revision_id: str) -> str | None:
+        row = connection.execute(
+            "SELECT review_sha256 FROM reviews WHERE revision_id = ?", (revision_id,)
+        ).fetchone()
+        return None if row is None else str(row[0])
+
     def decide(
         self, lease: AttemptLease, revision_id: str, policy_profile: PolicyProfile
     ) -> PublicationDecision:
@@ -459,18 +529,27 @@ class Publisher:
             assert row.check_bundle_sha256 is not None
             report = self.evidence._read_model(connection, row.report_sha256, ReportRevision)
             bundle = self.evidence._read_model(connection, row.check_bundle_sha256, CheckBundle)
+            review_sha256 = self._review_sha256(connection, revision_id)
+            review = (
+                None
+                if review_sha256 is None
+                else self.evidence._read_model(connection, review_sha256, ReviewDecision)
+            )
             problem = self._source_problem(connection, report)
             outcome: Literal["approved", "rejected", "needs_review", "stale"]
             reasons: tuple[str, ...]
             if problem is not None:
                 outcome, reasons = "stale", (problem,)
             else:
-                outcome, reasons = evaluate_policy(report, bundle, policy_profile)
+                outcome, reasons = evaluate_policy(report, bundle, policy_profile, review)
+            if policy_profile not in REVIEWED_PROFILES:
+                review_sha256 = None
             decision = PublicationDecision(
                 decision_id="decision-" + uuid4().hex,
                 report_revision_id=revision_id,
                 report_sha256=row.report_sha256,
                 check_bundle_sha256=row.check_bundle_sha256,
+                review_sha256=review_sha256,
                 policy_profile=policy_profile,
                 policy_version=POLICY_VERSION,
                 outcome=outcome,
@@ -482,6 +561,8 @@ class Publisher:
             )
             decision_sha256 = self.evidence._put_model(connection, decision)
             self.evidence._add_dependency(connection, row.check_bundle_sha256, decision_sha256)
+            if review_sha256 is not None:
+                self.evidence._add_dependency(connection, review_sha256, decision_sha256)
             connection.execute(
                 "UPDATE report_revisions SET status = ? WHERE revision_id = ?",
                 (outcome, revision_id),
@@ -493,6 +574,7 @@ class Publisher:
                     report_sha256=row.report_sha256,
                     rendered_sha256=row.rendered_sha256,
                     check_bundle_sha256=row.check_bundle_sha256,
+                    review_sha256=review_sha256,
                     policy_profile=policy_profile,
                     policy_version=POLICY_VERSION,
                     source_epoch=report.source_epoch,
@@ -549,6 +631,16 @@ class Publisher:
                 raise FencingError("approval belongs to a different attempt token")
             assert row.check_bundle_sha256 is not None
             self.evidence._read_model(connection, row.check_bundle_sha256, CheckBundle)
+            if approval.review_sha256 is not None:
+                if approval.review_sha256 != self._review_sha256(connection, revision_id):
+                    raise EvidenceIntegrityError("approval no longer binds the recorded review")
+                bound = self.evidence._read_model(
+                    connection, approval.review_sha256, ReviewDecision
+                )
+                if bound.decision != "allow" or bound.report_sha256 != row.report_sha256:
+                    raise EvidenceIntegrityError("approval review no longer allows these bytes")
+            elif approval.policy_profile in REVIEWED_PROFILES:
+                raise EvidenceIntegrityError("reviewed approval lacks its bound review")
             self.evidence._read_artifact(connection, row.rendered_sha256)
             if _sha256(render_report(report.task, report.claims)) != row.rendered_sha256:
                 raise EvidenceIntegrityError("approved claims no longer render the approved bytes")
@@ -644,6 +736,16 @@ class Publisher:
 
     # Read paths ---------------------------------------------------------
 
+    def active_source(self, source_key: str) -> tuple[str, int] | None:
+        """Return the registered active snapshot ID and epoch, if any."""
+
+        with self.evidence._connection() as connection:
+            row = connection.execute(
+                "SELECT active_snapshot_id, epoch FROM source_registry WHERE source_key = ?",
+                (source_key,),
+            ).fetchone()
+        return None if row is None else (str(row[0]), int(row[1]))
+
     def revision_status(self, revision_id: str) -> str:
         with self.evidence._connection() as connection:
             return self._revision(connection, revision_id).status
@@ -702,6 +804,11 @@ class Publisher:
             if row.check_bundle_sha256 is not None:
                 checks = self.evidence._read_model(connection, row.check_bundle_sha256, CheckBundle)
                 artifacts.append(row.check_bundle_sha256)
+            review = None
+            review_sha256 = self._review_sha256(connection, revision_id)
+            if review_sha256 is not None:
+                review = self.evidence._read_model(connection, review_sha256, ReviewDecision)
+                artifacts.append(review_sha256)
             approval = None
             approval_row = connection.execute(
                 "SELECT approval_sha256 FROM approvals WHERE revision_id = ?", (revision_id,)
@@ -744,6 +851,7 @@ class Publisher:
             executions=tuple(executions),
             report=report,
             checks=checks,
+            review=review,
             approval=approval,
             release=release,
             validity=validity,

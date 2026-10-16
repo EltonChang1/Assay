@@ -21,6 +21,9 @@ safety-lab = "safety_lab.cli:main"
 traceframe = [
     "traceframe",
 ]
+inspect = [
+    "inspect-ai>=0.3,<0.4",
+]
 
 [dependency-groups]
 dev = [
@@ -47,6 +50,11 @@ python_version = "3.12"
 strict = true
 files = ["src/safety_lab", "evaluator", "sandbox/worker.py"]
 plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+# Optional extra; CI installs it so the adapter is still type-checked there.
+module = ["inspect_ai", "inspect_ai.*"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

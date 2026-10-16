@@ -9,6 +9,8 @@ from pydantic import Field, model_validator
 from .base import VersionedModel
 from .claim import Claim
 from .execution import ExecutionReceipt, WorkerSuccess
+from .policy import PolicyProfile
+from .review import ReviewDecision
 from .snapshot import DatasetSnapshot, Sha256
 from .task import Identifier, NonEmpty, TaskSpec, UtcTimestamp
 
@@ -93,7 +95,8 @@ class PublicationDecision(VersionedModel):
     report_revision_id: Identifier
     report_sha256: Sha256
     check_bundle_sha256: Sha256
-    policy_profile: Literal["checked", "baseline"]
+    review_sha256: Sha256 | None = None
+    policy_profile: PolicyProfile
     policy_version: NonEmpty
     outcome: Literal["approved", "rejected", "needs_review", "stale"]
     reasons: tuple[Annotated[str, Field(min_length=1, max_length=400)], ...] = Field(
@@ -111,7 +114,8 @@ class ApprovalRecord(VersionedModel):
     report_sha256: Sha256
     rendered_sha256: Sha256
     check_bundle_sha256: Sha256
-    policy_profile: Literal["checked", "baseline"]
+    review_sha256: Sha256 | None = None
+    policy_profile: PolicyProfile
     policy_version: NonEmpty
     source_epoch: Annotated[int, Field(strict=True, ge=0)]
     attempt_id: Identifier
@@ -141,6 +145,7 @@ class AuditBundle(VersionedModel):
     executions: tuple[ExecutionEvidence, ...]
     report: ReportRevision
     checks: CheckBundle | None = None
+    review: ReviewDecision | None = None
     approval: ApprovalRecord | None = None
     release: ReleaseRecord | None = None
     validity: Literal["draft", "current", "stale", "historical"]
