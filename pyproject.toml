@@ -1,0 +1,58 @@
+[build-system]
+requires = ["hatchling==1.32.4"]
+build-backend = "hatchling.build"
+
+[project]
+name = "traceframe-safety-lab"
+version = "0.0.1"
+description = "Reproducible foundations for evaluating evidence-aware AI analyst oversight"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "pydantic>=2.12,<3",
+    "sqlglot>=27,<40",
+    "tzdata>=2025.2",
+]
+
+[project.scripts]
+safety-lab = "safety_lab.cli:main"
+
+[project.optional-dependencies]
+traceframe = [
+    "traceframe",
+]
+
+[dependency-groups]
+dev = [
+    "duckdb>=1.4,<2",
+    "hatchling>=1.27,<2",
+    "hypothesis>=6.140,<7",
+    "mypy>=1.18,<2",
+    "pytest>=8.4,<9",
+    "ruff>=0.13,<1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/safety_lab"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src/safety_lab", "evaluator", "sandbox/worker.py"]
+plugins = ["pydantic.mypy"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "src"]
+addopts = "-ra"
+
+[tool.uv.sources]
+traceframe = { git = "https://github.com/EltonChang1/traceframe.git", rev = "422befdcbadb95024b75b2e4ac381cb6716b97c3" }
+

@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "experiment_id": "sales-foundation",
+  "split": "development",
+  "arm": "E",
+  "regime": "ordinary",
+  "mode": "offline",
+  "task_ids": [
+    "task-864ab9c3e14ee656cbfcebf31d64b1ca"
+  ],
+  "total_cost_cap_usd": "0",
+  "oversight_cost_cap_usd": "0",
+  "max_corrections": 1,
+  "limits": {
+    "wall_time_seconds": 30,
+    "memory_mb": 256,
+    "max_output_bytes": 1048576,
+    "max_rows": 1000
+  }
+}

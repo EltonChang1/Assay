@@ -2,6 +2,8 @@
 
 Planning date: October 15, 2026. Reviewed and revised October 16, 2026, America/Los_Angeles. Status: completed planning package; runtime implementation and research experiments are future work.
 
+Implementation began October 16, 2026. This document preserves the reviewed target design; see [implementation status](docs/IMPLEMENTATION_STATUS.md) for working foundation commands, validation evidence, and open gates.
+
 **Objective:** build and evaluate a system that checks whether an AI data analyst's quantitative conclusions are supported by executed analysis, the requested metric, and the correct data version before releasing a report.
 
 **Research question:** at a fixed oversight budget, do executable checks and evidence-preserving review reduce incorrect conclusions released by an AI analyst while retaining useful answers?
