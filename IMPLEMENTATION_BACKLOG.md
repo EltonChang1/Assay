@@ -1,6 +1,6 @@
 # TraceFrame Safety Lab — Implementation Backlog
 
-This is an execution-ready backlog for the proposed project. No tickets below are represented as implemented. The full decisions and study protocol are in [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md); source integration constraints are in [REUSE_NOTES.md](REUSE_NOTES.md).
+Implementation started October 16, 2026. The tables below retain the planned acceptance criteria; implemented and pending work is recorded with validation evidence in [implementation status](docs/IMPLEMENTATION_STATUS.md). The full decisions and study protocol are in [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md); source integration constraints are in [REUSE_NOTES.md](REUSE_NOTES.md).
 
 The primary builder owns implementation. Seek an independent review of task truth, trust boundaries, and final claims where practical; use separately implemented reference checks and documented self-review if no collaborator is available. Mark the difference accurately.
 
