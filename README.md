@@ -6,7 +6,7 @@ The package/CLI, public task and claim contracts, deterministic synthetic sales 
 
 TraceFrame Safety Lab is an AI safety research and systems engineering project investigating whether executable checks and data provenance reduce unsupported conclusions released by an AI data analyst.
 
-The Docker worker and gateway are implemented. The Phase 2 enabled run passed **311 tests**, including **28 real Docker boundary cases**; [saved validation evidence](docs/validation/docker-validation.json) records the image, source hashes, and checked boundaries. Phase 3 adds claim-to-cell verification, public-contract checks, a typed-slot renderer, the single fenced publisher with source-epoch invalidation, and an isolated TraceFrame researcher-audit export ([ADR 0003](docs/ADR-0003-publication.md)). **365 offline tests** pass; the Docker suite awaits a re-run on the current tree. Model integrations and research experiments remain planned work. No model calls or charges are incurred by the implemented commands.
+The Docker worker and gateway are implemented. The Phase 2 enabled run passed **311 tests**, including **28 real Docker boundary cases**; [saved validation evidence](docs/validation/docker-validation.json) records the image, source hashes, and checked boundaries. Phase 3 adds claim-to-cell verification, public-contract checks, a typed-slot renderer, the single fenced publisher with source-epoch invalidation, and an isolated TraceFrame researcher-audit export ([ADR 0003](docs/ADR-0003-publication.md)). P4.1–P4.3 add a provider-agnostic analyst episode loop with an optional Inspect-backed model client, plus ordinary-summary and evidence-preserving reviewers ([ADR 0004](docs/ADR-0004-episodes-and-review.md)). The latest fully enabled run passed **424 tests**, including all 28 real Docker cases, with no skips. Arms with correction, budgets, and research experiments remain planned work. No model calls or charges are incurred by the implemented commands.
 
 ## Run the foundation
 
@@ -51,7 +51,7 @@ Receipts preserve the exact query/hash, normalized query, snapshot manifest hash
 ## Development checks
 
 ```text
-uv sync --locked --extra traceframe
+uv sync --locked --extra traceframe --extra inspect
 uv run --locked ruff check .
 uv run --locked ruff format --check .
 uv run --locked mypy
@@ -59,7 +59,7 @@ uv run --locked pytest
 uv build --no-sources
 ```
 
-The optional `traceframe` extra installs the exact pinned upstream commit for the researcher-audit export tests. Without it, those tests skip; set `SAFETY_LAB_TRACEFRAME_TESTS=1` (as CI does) to make a missing extra fail instead.
+The optional `traceframe` extra installs the exact pinned upstream commit for the researcher-audit export tests. The optional `inspect` extra installs Inspect for `InspectModelClient`; its tests use Inspect's offline mock provider. Without an extra, its tests skip; set `SAFETY_LAB_TRACEFRAME_TESTS=1` or `SAFETY_LAB_INSPECT_TESTS=1` (as CI does) to make a missing extra fail instead.
 
 The CI workflow runs the foundation checks on Windows and Linux. CI has been configured; a remote CI run is not claimed by local validation. Exact Python dependencies and artifact hashes are recorded in `uv.lock`. See the [dependency inventory](docs/DEPENDENCIES.md), [charter](docs/CHARTER.md), [architecture decision](docs/ADR-0001-foundation.md), and [security boundaries](SECURITY.md).
 

@@ -20,13 +20,14 @@ jobs:
           version: "0.6.5"
           enable-cache: true
       - run: uv python install 3.12
-      - run: uv sync --locked --extra traceframe
-      - run: uv run --locked --extra traceframe ruff check .
-      - run: uv run --locked --extra traceframe ruff format --check .
-      - run: uv run --locked --extra traceframe mypy
-      - run: uv run --locked --extra traceframe pytest
+      - run: uv sync --locked --extra traceframe --extra inspect
+      - run: uv run --locked --extra traceframe --extra inspect ruff check .
+      - run: uv run --locked --extra traceframe --extra inspect ruff format --check .
+      - run: uv run --locked --extra traceframe --extra inspect mypy
+      - run: uv run --locked --extra traceframe --extra inspect pytest
         env:
           SAFETY_LAB_TRACEFRAME_TESTS: "1"
+          SAFETY_LAB_INSPECT_TESTS: "1"
       - run: uv run --locked safety-lab doctor
       - run: uv run --locked python -m evaluator
       - run: uv build --no-sources

@@ -12,6 +12,7 @@ from test_evidence import captured_execution, table_counts
 
 from safety_lab.contracts import DatasetSnapshot, TaskSpec, canonical_json_bytes
 from safety_lab.evidence import EvidenceIntegrityError, EvidenceStore
+from safety_lab.evidence.store import SCHEMA_VERSION
 
 
 def test_typed_records_and_exact_blobs_round_trip_with_stable_content_identity(tmp_path):
@@ -178,6 +179,7 @@ PUBLICATION_TABLES = (
     "approvals",
     "releases",
     "latest_releases",
+    "reviews",
 )
 
 
@@ -211,14 +213,14 @@ def test_schema_one_recovery_preserves_original_bytes_and_backfills_only_real_pr
     assert receipt_hash in store.get_dependents(receipt.snapshot_manifest_sha256)
     assert store.get_events() == ()
     with sqlite3.connect(store.database_path) as connection:
-        assert connection.execute("PRAGMA user_version").fetchone()[0] == 2
+        assert connection.execute("PRAGMA user_version").fetchone()[0] == SCHEMA_VERSION
         for table, records in original_records.items():
             assert connection.execute(f"SELECT * FROM {table}").fetchall() == records
         for table in PUBLICATION_TABLES:
             assert connection.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0] == 0
     assert EvidenceStore(tmp_path).get_execution(receipt.execution_id) == receipt
     with sqlite3.connect(store.database_path) as connection:
-        assert connection.execute("PRAGMA user_version").fetchone()[0] == 2
+        assert connection.execute("PRAGMA user_version").fetchone()[0] == SCHEMA_VERSION
 
 
 def test_corrupt_legacy_evidence_does_not_partially_migrate_or_invent_dependencies(tmp_path):
