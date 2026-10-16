@@ -7,7 +7,7 @@ from typing import Annotated, Literal, Self
 from pydantic import Field, JsonValue, model_validator
 
 from .base import VersionedModel
-from .policy import PolicyProfile
+from .policy import ARMS, Arm, PolicyProfile
 from .snapshot import Sha256
 from .task import Identifier, NonEmpty, UtcTimestamp
 
@@ -94,6 +94,22 @@ class EpisodeTranscript(VersionedModel):
     usage: tuple[ModelUsage, ...]
 
 
+class CorrectionFeedback(VersionedModel):
+    """The only oversight output an analyst sees: its arm's decision reasons.
+
+    Reasons come from the arm's own policy decision, so arms without research
+    checks never receive check outcomes. Reviewer prose is never included.
+    """
+
+    format: Literal["correction-feedback-1.0"] = "correction-feedback-1.0"
+    round: Annotated[int, Field(strict=True, gt=0)]
+    max_rounds: Annotated[int, Field(strict=True, gt=0)]
+    revision_id: Identifier
+    outcome: Literal["rejected", "needs_review"]
+    reasons: tuple[Annotated[str, Field(max_length=400)], ...] = Field(default=(), max_length=1024)
+    reviewer_reason_codes: tuple[Identifier, ...] = Field(default=(), max_length=12)
+
+
 EpisodeStatus = Literal[
     "released",
     "withheld",
@@ -103,6 +119,15 @@ EpisodeStatus = Literal[
     "model_error",
     "infrastructure_error",
 ]
+CorrectionStatus = Literal[
+    "resubmitted",
+    "no_submission",
+    "tool_limit",
+    "time_limit",
+    "model_error",
+    "infrastructure_error",
+]
+_ERRORS = ("model_error", "infrastructure_error")
 
 
 class EpisodeRecord(VersionedModel):
@@ -114,16 +139,21 @@ class EpisodeRecord(VersionedModel):
     snapshot_id: Identifier
     source_key: Identifier
     policy_profile: PolicyProfile
+    arm: Arm | None = None
     model_id: NonEmpty
     prompt_version: NonEmpty
     prompt_sha256: Sha256
     status: EpisodeStatus
     error_category: Annotated[str, Field(min_length=1, max_length=128)] | None = None
     revision_id: Identifier | None = None
+    revision_ids: tuple[Identifier, ...] = Field(default=(), max_length=8)
+    correction_rounds: Count = 0
+    correction_status: CorrectionStatus | None = None
     decision_outcome: Literal["approved", "rejected", "needs_review", "stale"] | None = None
     decision_reasons: tuple[Annotated[str, Field(max_length=400)], ...] = ()
     release_id: Identifier | None = None
     review_id: Identifier | None = None
+    review_ids: tuple[Identifier, ...] = Field(default=(), max_length=8)
     review_view: Literal["ordinary", "evidence"] | None = None
     review_decision: (
         Literal["allow", "reject", "needs_review", "malformed", "missing", "error"] | None
@@ -151,8 +181,26 @@ class EpisodeRecord(VersionedModel):
             raise ValueError("released episodes require an approval")
         if self.status == "withheld" and self.decision_outcome in (None, "approved"):
             raise ValueError("withheld episodes require a non-approving decision")
-        if (self.status in ("model_error", "infrastructure_error")) != (
+        if (self.status in _ERRORS or self.correction_status in _ERRORS) != (
             self.error_category is not None
         ):
-            raise ValueError("error episodes, and only error episodes, carry a category")
+            raise ValueError("only an episode or correction round ending in error has a category")
+        if self.revision_ids and self.revision_ids[-1] != self.revision_id:
+            raise ValueError("the final revision must be the last recorded revision")
+        if self.review_ids and self.review_ids[-1] != self.review_id:
+            raise ValueError("the final review must be the last recorded review")
+        if (self.correction_rounds == 0) != (self.correction_status is None):
+            raise ValueError("a correction status records exactly the rounds that were offered")
+        if (
+            self.correction_status == "resubmitted"
+            and self.revision_ids
+            and (len(self.revision_ids) != self.correction_rounds + 1)
+        ):
+            raise ValueError("each resubmitted correction round adds one revision")
+        if self.arm is not None:
+            profile, view = ARMS[self.arm]
+            if self.policy_profile != profile:
+                raise ValueError("the arm determines the publication policy profile")
+            if self.review_view is not None and self.review_view != view:
+                raise ValueError("the arm determines the reviewer view")
         return self
