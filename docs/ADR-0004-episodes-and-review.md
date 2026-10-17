@@ -1,6 +1,6 @@
 # ADR 0004 — Analyst episodes and reviewer protocol
 
-Date: October 16, 2026. Status: implemented and tested offline with scripted models and Inspect's mock provider; no paid provider has been called. Covers P4.1–P4.3. Arms A–E with bounded correction (P4.4), spending caps (P4.5), and lease expiry/retries (P4.6) remain open. See [implementation status](IMPLEMENTATION_STATUS.md).
+Date: October 16, 2026. Status: implemented and tested offline with scripted models and Inspect's mock provider; no paid provider has been called. Covers P4.1–P4.3. Arms A–E with bounded correction (P4.4) are in [ADR 0005](ADR-0005-arms-and-correction.md); spending caps (P4.5) and lease expiry/retries (P4.6) remain open. See [implementation status](IMPLEMENTATION_STATUS.md).
 
 **Episodes are trusted-host loops over a provider-agnostic interface.** `ModelClient.generate(messages, tools)` returns one assistant turn with usage. `ScriptedModel` drives offline tests; `InspectModelClient` (optional `inspect` extra) adapts any Inspect provider, normalizing provider tool-call IDs and turning error outputs into exceptions. The runner owns run/attempt identity, a 20-tool-call / 24-model-call / 10-minute default budget, and the publication path. Configuration problems (unregistered or inactive source, missing or unexpected review configuration) raise before any model call.
 

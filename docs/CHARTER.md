@@ -1,6 +1,6 @@
 # Assay — v1 charter
 
-Adopted October 16, 2026. This charter fixes the research scope; it does not certify that the planned runtime or phase gates are complete. Implementation has reached the Phase 3 publication slice and the first Phase 4 episode and reviewer tickets (P4.1–P4.3). Gate status and remaining work are tracked in [implementation status](IMPLEMENTATION_STATUS.md) against [the backlog](../IMPLEMENTATION_BACKLOG.md).
+Adopted October 16, 2026. This charter fixes the research scope; it does not certify that the planned runtime or phase gates are complete. Implementation has reached the Phase 3 publication slice and the Phase 4 episode, reviewer, arm, and correction tickets (P4.1–P4.4). Gate status and remaining work are tracked in [implementation status](IMPLEMENTATION_STATUS.md) against [the backlog](../IMPLEMENTATION_BACKLOG.md).
 
 ## Purpose and users
 
