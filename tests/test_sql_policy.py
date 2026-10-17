@@ -7,8 +7,8 @@ from dataclasses import FrozenInstanceError
 
 import pytest
 
-from safety_lab.gateway import SQLPolicyError, validate_sql
-from safety_lab.gateway.policy import MAX_QUERY_BYTES, POLICY_VERSION
+from assay.gateway import SQLPolicyError, validate_sql
+from assay.gateway.policy import MAX_QUERY_BYTES, POLICY_VERSION
 
 TABLES = ("orders", "order_items", "customers")
 

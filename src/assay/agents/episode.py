@@ -23,8 +23,8 @@ from uuid import uuid4
 
 from pydantic import ValidationError
 
-from safety_lab.contracts import CellLocator, Claim, DatasetSnapshot, TaskSpec, canonical_json_bytes
-from safety_lab.contracts.episode import (
+from assay.contracts import CellLocator, Claim, DatasetSnapshot, TaskSpec, canonical_json_bytes
+from assay.contracts.episode import (
     ClaimSubmission,
     EpisodeRecord,
     EpisodeStatus,
@@ -32,13 +32,13 @@ from safety_lab.contracts.episode import (
     Message,
     ModelUsage,
 )
-from safety_lab.contracts.experiment import ResourceLimits
-from safety_lab.contracts.policy import PolicyProfile
-from safety_lab.contracts.report import ClaimInput, PublicationDecision, ReportRevision
-from safety_lab.contracts.review import ReviewDecision
-from safety_lab.evidence import EvidenceStore
-from safety_lab.gateway.service import freeze_input_bundle
-from safety_lab.publication import (
+from assay.contracts.experiment import ResourceLimits
+from assay.contracts.policy import PolicyProfile
+from assay.contracts.report import ClaimInput, PublicationDecision, ReportRevision
+from assay.contracts.review import ReviewDecision
+from assay.evidence import EvidenceStore
+from assay.gateway.service import freeze_input_bundle
+from assay.publication import (
     FencingError,
     PublicationError,
     Publisher,
@@ -49,7 +49,7 @@ from .model import ModelClient
 from .tools import TOOL_SPECS, AnalystTools, EpisodeAbort
 
 if TYPE_CHECKING:
-    from safety_lab.review import ReviewConfig
+    from assay.review import ReviewConfig
 
 REVIEWED_PROFILES = ("reviewed", "checked_reviewed")
 
@@ -294,7 +294,7 @@ def run_analyst_episode(
         try:
             publisher.check_report(lease, report.revision_id)
             if review is not None:
-                from safety_lab.review import run_review
+                from assay.review import run_review
 
                 reviewed = run_review(
                     review,

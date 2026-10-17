@@ -12,17 +12,17 @@ def state_directory(
     *, environ: Mapping[str, str] | None = None, workspace: Path | None = None
 ) -> Path:
     env = os.environ if environ is None else environ
-    if override := env.get("SAFETY_LAB_STATE_DIR"):
+    if override := env.get("ASSAY_STATE_DIR"):
         candidate = Path(override).expanduser()
         if not candidate.is_absolute():
-            raise ValueError("SAFETY_LAB_STATE_DIR must be an absolute local path")
+            raise ValueError("ASSAY_STATE_DIR must be an absolute local path")
     elif sys.platform == "win32":
         if not (base := env.get("LOCALAPPDATA")):
-            raise ValueError("LOCALAPPDATA is unavailable; set SAFETY_LAB_STATE_DIR")
-        candidate = Path(base) / "TraceFrameSafetyLab"
+            raise ValueError("LOCALAPPDATA is unavailable; set ASSAY_STATE_DIR")
+        candidate = Path(base) / "Assay"
     else:
         candidate = Path(env.get("XDG_STATE_HOME", str(Path.home() / ".local" / "state")))
-        candidate /= "TraceFrameSafetyLab"
+        candidate /= "Assay"
 
     resolved = candidate.resolve()
     source = (workspace or Path(__file__).resolve().parents[2]).resolve()

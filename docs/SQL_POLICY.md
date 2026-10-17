@@ -1,6 +1,6 @@
 # Initial SQL capability policy
 
-Policy version: `duckdb-select-1.0`. Implementation: `src/safety_lab/gateway/policy.py`, using the locked sqlglot DuckDB dialect. This is a pure parser/authorization component for P2.1; it neither executes SQL nor establishes the G2 worker boundary.
+Policy version: `duckdb-select-1.0`. Implementation: `src/assay/gateway/policy.py`, using the locked sqlglot DuckDB dialect. This is a pure parser/authorization component for P2.1; it neither executes SQL nor establishes the G2 worker boundary.
 
 ## Supported subset
 

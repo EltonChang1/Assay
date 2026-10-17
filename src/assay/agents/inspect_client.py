@@ -12,7 +12,7 @@ import hashlib
 import re
 from typing import TYPE_CHECKING, Any
 
-from safety_lab.contracts.episode import Message, ModelTurn, ModelUsage, ToolCall, ToolSpec
+from assay.contracts.episode import Message, ModelTurn, ModelUsage, ToolCall, ToolSpec
 
 if TYPE_CHECKING:
     from inspect_ai.model import ChatMessage, GenerateConfig, Model

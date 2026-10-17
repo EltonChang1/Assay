@@ -16,14 +16,14 @@ from pathlib import Path
 
 from pydantic import JsonValue, ValidationError
 
-from safety_lab.contracts import DatasetSnapshot, TaskSpec
-from safety_lab.contracts.episode import ClaimSubmission, ToolCall, ToolSpec
-from safety_lab.contracts.execution import ExecutionReceipt
-from safety_lab.contracts.experiment import ResourceLimits
-from safety_lab.evidence import EvidenceIntegrityError, EvidenceStore
-from safety_lab.execution.docker import WorkerUnavailableError
-from safety_lab.gateway import service
-from safety_lab.gateway.policy import SQLPolicyError
+from assay.contracts import DatasetSnapshot, TaskSpec
+from assay.contracts.episode import ClaimSubmission, ToolCall, ToolSpec
+from assay.contracts.execution import ExecutionReceipt
+from assay.contracts.experiment import ResourceLimits
+from assay.evidence import EvidenceIntegrityError, EvidenceStore
+from assay.execution.docker import WorkerUnavailableError
+from assay.gateway import service
+from assay.gateway.policy import SQLPolicyError
 
 PREVIEW_ROWS = 20
 MAX_SLICE_ROWS = 100

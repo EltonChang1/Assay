@@ -16,15 +16,15 @@ from pathlib import Path
 
 import duckdb
 
-from safety_lab.contracts import CellLocator, Claim, canonical_json_bytes
-from safety_lab.contracts.execution import WorkerSuccess
-from safety_lab.contracts.report import ClaimInput, ClaimRecord, ReportRevision
-from safety_lab.datasets import SalesFixture, generate_sales_fixture, write_public_bundle
-from safety_lab.evidence import EvidenceStore
-from safety_lab.execution.docker import ContainerOutcome, WorkerImage
-from safety_lab.gateway import service
-from safety_lab.gateway.service import QueryOutcome
-from safety_lab.publication.rendering import render_report
+from assay.contracts import CellLocator, Claim, canonical_json_bytes
+from assay.contracts.execution import WorkerSuccess
+from assay.contracts.report import ClaimInput, ClaimRecord, ReportRevision
+from assay.datasets import SalesFixture, generate_sales_fixture, write_public_bundle
+from assay.evidence import EvidenceStore
+from assay.execution.docker import ContainerOutcome, WorkerImage
+from assay.gateway import service
+from assay.gateway.service import QueryOutcome
+from assay.publication.rendering import render_report
 from sandbox.worker import _CREATE_TABLE, _INSERT_TABLE, read_table_rows, serialize_result
 
 SCOPE = (

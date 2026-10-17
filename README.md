@@ -1,12 +1,12 @@
-# TraceFrame Safety Lab
+# Assay
 
 **Development foundation — implementation started October 16, 2026.**
 
 The package/CLI, public task and claim contracts, deterministic synthetic sales data, independent development scorer, SQL policy, and transactional execution evidence store are implemented. The first regression harness distinguishes the correct **USD 200.00** total from the duplicated-join **USD 340.00** result, and rejects the `SUM(DISTINCT amount)` shortcut when two orders have the same value.
 
-TraceFrame Safety Lab is an AI safety research and systems engineering project investigating whether executable checks and data provenance reduce unsupported conclusions released by an AI data analyst.
+Assay is an AI safety research and systems engineering project investigating whether executable checks and data provenance reduce unsupported conclusions released by an AI data analyst.
 
-The Docker worker and gateway are implemented. The Phase 2 enabled run passed **311 tests**, including **28 real Docker boundary cases**; [saved validation evidence](docs/validation/docker-validation.json) records the image, source hashes, and checked boundaries. Phase 3 adds claim-to-cell verification, public-contract checks, a typed-slot renderer, the single fenced publisher with source-epoch invalidation, and an isolated TraceFrame researcher-audit export ([ADR 0003](docs/ADR-0003-publication.md)). P4.1–P4.3 add a provider-agnostic analyst episode loop with an optional Inspect-backed model client, plus ordinary-summary and evidence-preserving reviewers ([ADR 0004](docs/ADR-0004-episodes-and-review.md)); these are library APIs (`safety_lab.agents`, `safety_lab.review`) exercised by tests, with no CLI command yet. The latest fully enabled local run passed **424 tests**, including all 28 real Docker cases, with no skips; GitHub's hosted Linux runner does not yet reproduce the Docker cases (see [development checks](#development-checks)). Arms with correction, budgets, and research experiments remain planned work. No model calls or charges are incurred by the implemented commands.
+The Docker worker and gateway are implemented. The Phase 2 enabled run passed **311 tests**, including **28 real Docker boundary cases**; [saved validation evidence](docs/validation/docker-validation.json) records the image, source hashes, and checked boundaries. Phase 3 adds claim-to-cell verification, public-contract checks, a typed-slot renderer, the single fenced publisher with source-epoch invalidation, and an isolated TraceFrame researcher-audit export ([ADR 0003](docs/ADR-0003-publication.md)). P4.1–P4.3 add a provider-agnostic analyst episode loop with an optional Inspect-backed model client, plus ordinary-summary and evidence-preserving reviewers ([ADR 0004](docs/ADR-0004-episodes-and-review.md)); these are library APIs (`assay.agents`, `assay.review`) exercised by tests, with no CLI command yet. The latest fully enabled local run passed **424 tests**, including all 28 real Docker cases, with no skips; GitHub's hosted Linux runner does not yet reproduce the Docker cases (see [development checks](#development-checks)). Arms with correction, budgets, and research experiments remain planned work. No model calls or charges are incurred by the implemented commands.
 
 ## Run the foundation
 
@@ -14,8 +14,8 @@ Install Python 3.12 and uv, then run from this checkout:
 
 ```text
 uv sync --locked
-uv run --locked safety-lab doctor
-uv run --locked safety-lab milestone
+uv run --locked assay doctor
+uv run --locked assay milestone
 uv run --locked pytest
 ```
 
@@ -24,24 +24,24 @@ uv run --locked pytest
 Generate an allowlisted public bundle containing the task contract, CSV tables, and hashed manifest:
 
 ```text
-uv run --locked safety-lab dataset build
-uv run --locked safety-lab dataset validate --manifest <public_bundle>/manifest.json
-uv run --locked safety-lab spec validate --manifest experiment_specs/development.json
+uv run --locked assay dataset build
+uv run --locked assay dataset validate --manifest <public_bundle>/manifest.json
+uv run --locked assay spec validate --manifest experiment_specs/development.json
 ```
 
-The build command prints its actual output path. Its default is under `%LOCALAPPDATA%/TraceFrameSafetyLab/datasets` on Windows and `$XDG_STATE_HOME/TraceFrameSafetyLab/datasets` (or `~/.local/state/TraceFrameSafetyLab/datasets`) on Linux. Use `--output <new-directory>`, `--seed <nonnegative-integer>`, or `--variant equal_amount|insufficient|historical` for another development fixture. Existing bundle directories are never overwritten. The public bundle contains no oracle answers, canonical private events, seeds, or diagnostic labels. Private development truth can be saved separately through the builder API, outside a public bundle.
+The build command prints its actual output path. Its default is under `%LOCALAPPDATA%/Assay/datasets` on Windows and `$XDG_STATE_HOME/Assay/datasets` (or `~/.local/state/Assay/datasets`) on Linux. Use `--output <new-directory>`, `--seed <nonnegative-integer>`, or `--variant equal_amount|insufficient|historical` for another development fixture. Existing bundle directories are never overwritten. The public bundle contains no oracle answers, canonical private events, seeds, or diagnostic labels. Private development truth can be saved separately through the builder API, outside a public bundle.
 
-`SAFETY_LAB_STATE_DIR` overrides the live-state root with an absolute local path; paths inside the source workspace or OneDrive are rejected. The diagnostic command checks setup without creating a database, printing credentials, or calling a model. `doctor --require-docker` additionally requires a running Linux engine. With the pinned image available, `doctor` reports Docker and worker readiness; it explicitly leaves isolation validation unassessed. Local provisioning, Windows-to-Linux input mounting, and separate container boundary tests have passed; see [implementation status](docs/IMPLEMENTATION_STATUS.md).
+`ASSAY_STATE_DIR` overrides the live-state root with an absolute local path; paths inside the source workspace or OneDrive are rejected. The diagnostic command checks setup without creating a database, printing credentials, or calling a model. `doctor --require-docker` additionally requires a running Linux engine. With the pinned image available, `doctor` reports Docker and worker readiness; it explicitly leaves isolation validation unassessed. Local provisioning, Windows-to-Linux input mounting, and separate container boundary tests have passed; see [implementation status](docs/IMPLEMENTATION_STATUS.md).
 
 ## Container execution development
 
 With a working local Linux Docker engine, build the pinned worker from this **source checkout**, then exercise provisioning:
 
 ```text
-uv run --locked safety-lab worker build
-uv run --locked safety-lab worker smoke
-uv run --locked safety-lab query --manifest <public_bundle>/manifest.json --sql "SELECT SUM(amount_minor * 0.01) AS revenue_usd FROM orders"
-uv run --locked safety-lab receipt --id <execution_id>
+uv run --locked assay worker build
+uv run --locked assay worker smoke
+uv run --locked assay query --manifest <public_bundle>/manifest.json --sql "SELECT SUM(amount_minor * 0.01) AS revenue_usd FROM orders"
+uv run --locked assay receipt --id <execution_id>
 ```
 
 These commands fail when the worker is unavailable and never execute analyst SQL on the host. The image build uses an allowlisted staging directory containing only the worker, shared SQL policy, Dockerfile, and hash-pinned dependencies. Runtime dispatch uses its immutable local image ID, a read-only frozen public input mount, disabled network, a non-root user, resource limits, and bounded output capture. Private evaluator code, the checkout, state database, and Docker socket are not mounted. The opt-in [Docker boundary suite](tests/test_sandbox_integration.py) has passed useful and denied queries, resource exhaustion, isolation, output overflow, and timeout/cancellation cleanup on this local engine.
@@ -59,7 +59,7 @@ uv run --locked pytest
 uv build --no-sources
 ```
 
-The optional `traceframe` extra installs the exact pinned upstream commit for the researcher-audit export tests. The optional `inspect` extra installs Inspect for `InspectModelClient`; its tests use Inspect's offline mock provider. Without an extra, its tests skip; set `SAFETY_LAB_TRACEFRAME_TESTS=1` or `SAFETY_LAB_INSPECT_TESTS=1` (as CI does) to make a missing extra fail instead.
+The optional `traceframe` extra installs the exact pinned upstream commit for the researcher-audit export tests. The optional `inspect` extra installs Inspect for `InspectModelClient`; its tests use Inspect's offline mock provider. Without an extra, its tests skip; set `ASSAY_TRACEFRAME_TESTS=1` or `ASSAY_INSPECT_TESTS=1` (as CI does) to make a missing extra fail instead.
 
 GitHub Actions runs the foundation checks on Windows and Linux, plus a separate Linux Docker job. On `main` at `7ce5d22`, the foundation checks pass on both systems (396 tests passed; the 28 Docker cases skip there). The hosted Docker job failed there: 11 of 28 cases received the worker error `invalid_bundle` while 17 passed, the same result as before Phase 4. The cause was owner-only permissions on the frozen input snapshot, which Linux bind mounts enforce and Docker Desktop on Windows does not. The fix has been verified locally and in a Linux reproduction, but awaits a hosted CI run; see [implementation status](docs/IMPLEMENTATION_STATUS.md#remote-ci). Exact Python dependencies and artifact hashes are recorded in `uv.lock`. See the [dependency inventory](docs/DEPENDENCIES.md), [charter](docs/CHARTER.md), [architecture decision](docs/ADR-0001-foundation.md), and [security boundaries](SECURITY.md).
 

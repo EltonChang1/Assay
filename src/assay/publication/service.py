@@ -19,9 +19,9 @@ from uuid import uuid4
 
 from pydantic import Field
 
-from safety_lab.contracts import DatasetSnapshot, TaskSpec, VersionedModel, canonical_json_bytes
-from safety_lab.contracts.policy import PolicyProfile
-from safety_lab.contracts.report import (
+from assay.contracts import DatasetSnapshot, TaskSpec, VersionedModel, canonical_json_bytes
+from assay.contracts.policy import PolicyProfile
+from assay.contracts.report import (
     ApprovalRecord,
     AuditBundle,
     CheckBundle,
@@ -32,10 +32,10 @@ from safety_lab.contracts.report import (
     ReleaseRecord,
     ReportRevision,
 )
-from safety_lab.contracts.review import ReviewDecision, ReviewTranscript
-from safety_lab.contracts.task import Identifier, NonEmpty
-from safety_lab.evidence.store import EvidenceIntegrityError, EvidenceStore
-from safety_lab.verification import CHECKER_VERSION, required_check_keys, verify_report
+from assay.contracts.review import ReviewDecision, ReviewTranscript
+from assay.contracts.task import Identifier, NonEmpty
+from assay.evidence.store import EvidenceIntegrityError, EvidenceStore
+from assay.verification import CHECKER_VERSION, required_check_keys, verify_report
 
 from .rendering import render_report
 

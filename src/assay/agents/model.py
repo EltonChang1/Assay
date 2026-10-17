@@ -10,7 +10,7 @@ from __future__ import annotations
 from collections.abc import Callable, Sequence
 from typing import Protocol
 
-from safety_lab.contracts.episode import Message, ModelTurn, ModelUsage, ToolSpec
+from assay.contracts.episode import Message, ModelTurn, ModelUsage, ToolSpec
 
 ScriptStep = Message | Exception | Callable[[tuple[Message, ...]], Message | Exception]
 

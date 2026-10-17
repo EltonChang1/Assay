@@ -5,18 +5,18 @@ import json
 import pytest
 from phase3_support import CORRECT_SQL, DUPLICATED_SQL, make_lab
 
-from evaluator.oracle import score_claims
-from safety_lab.agents import (
+from assay.agents import (
     PROMPT_SHA256,
     TOOL_SPECS,
     EpisodeLimits,
     ScriptedModel,
     run_analyst_episode,
 )
-from safety_lab.contracts.episode import EpisodeRecord, EpisodeTranscript, Message, ToolCall
-from safety_lab.execution.docker import WorkerUnavailableError
-from safety_lab.gateway import service
-from safety_lab.publication import Publisher
+from assay.contracts.episode import EpisodeRecord, EpisodeTranscript, Message, ToolCall
+from assay.execution.docker import WorkerUnavailableError
+from assay.gateway import service
+from assay.publication import Publisher
+from evaluator.oracle import score_claims
 
 SOURCE = "sales-q1"
 

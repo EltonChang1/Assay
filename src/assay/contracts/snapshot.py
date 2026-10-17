@@ -40,7 +40,7 @@ class DatasetSnapshot(VersionedModel):
     task_id: Identifier
     task_sha256: Sha256
     tables: tuple[TableFile, ...]
-    source: NonEmpty = "TraceFrame Safety Lab synthetic development fixture"
+    source: NonEmpty = "Assay synthetic development fixture"
     license: NonEmpty = "undecided; local synthetic development fixture"
     created_at: UtcTimestamp
     data_contract_version: Literal["sales-orders-1.0"] = "sales-orders-1.0"

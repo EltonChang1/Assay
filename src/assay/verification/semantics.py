@@ -19,7 +19,7 @@ import sqlglot
 from sqlglot import exp
 from sqlglot.errors import SqlglotError
 
-from safety_lab.contracts import TaskSpec
+from assay.contracts import TaskSpec
 
 Outcome = Literal["pass", "fail", "unknown"]
 

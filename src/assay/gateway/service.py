@@ -12,14 +12,14 @@ from datetime import UTC, datetime
 from pathlib import Path
 from uuid import uuid4
 
-from safety_lab.config import state_directory
-from safety_lab.contracts import DatasetSnapshot, TaskSpec, canonical_json_bytes
-from safety_lab.contracts.execution import ExecutionReceipt, WorkerSuccess
-from safety_lab.contracts.experiment import ResourceLimits
-from safety_lab.datasets import validate_public_bundle
-from safety_lab.evidence.store import EvidenceStore
-from safety_lab.execution.docker import execute_container, load_worker
-from safety_lab.gateway.policy import validate_sql
+from assay.config import state_directory
+from assay.contracts import DatasetSnapshot, TaskSpec, canonical_json_bytes
+from assay.contracts.execution import ExecutionReceipt, WorkerSuccess
+from assay.contracts.experiment import ResourceLimits
+from assay.datasets import validate_public_bundle
+from assay.evidence.store import EvidenceStore
+from assay.execution.docker import execute_container, load_worker
+from assay.gateway.policy import validate_sql
 
 _RUN_ID = re.compile(r"[a-zA-Z0-9][a-zA-Z0-9_.-]{0,159}")
 

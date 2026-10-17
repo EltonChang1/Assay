@@ -14,11 +14,11 @@ from uuid import uuid4
 
 from pydantic import ValidationError
 
-from safety_lab.contracts import DatasetSnapshot, TaskSpec, canonical_json_bytes
-from safety_lab.contracts.execution import ExecutionReceipt, WorkerSuccess
-from safety_lab.contracts.report import CheckBundle, CheckResult, ClaimRecord, ReportRevision
-from safety_lab.evidence import EvidenceIntegrityError, EvidenceStore
-from safety_lab.gateway.policy import SQLPolicyError, validate_sql
+from assay.contracts import DatasetSnapshot, TaskSpec, canonical_json_bytes
+from assay.contracts.execution import ExecutionReceipt, WorkerSuccess
+from assay.contracts.report import CheckBundle, CheckResult, ClaimRecord, ReportRevision
+from assay.evidence import EvidenceIntegrityError, EvidenceStore
+from assay.gateway.policy import SQLPolicyError, validate_sql
 
 from .semantics import Finding, Outcome, PublicRows, inspect_query
 

@@ -3,27 +3,27 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
-from safety_lab.config import state_directory
-from safety_lab.contracts.experiment import ExperimentConfig
+from assay.config import state_directory
+from assay.contracts.experiment import ExperimentConfig
 
 
 def test_state_override_is_absolute_and_outside_workspace(tmp_path: Path) -> None:
     workspace = tmp_path / "source"
     state = tmp_path / "state"
     assert (
-        state_directory(environ={"SAFETY_LAB_STATE_DIR": str(state)}, workspace=workspace)
+        state_directory(environ={"ASSAY_STATE_DIR": str(state)}, workspace=workspace)
         == state.resolve()
     )
     for value in ("relative-state", str(workspace / "runs"), str(tmp_path / "OneDrive" / "x")):
         with pytest.raises(ValueError):
-            state_directory(environ={"SAFETY_LAB_STATE_DIR": value}, workspace=workspace)
+            state_directory(environ={"ASSAY_STATE_DIR": value}, workspace=workspace)
 
 
 def test_state_rejects_named_sync_root(tmp_path: Path) -> None:
     sync = tmp_path / "company-sync"
     with pytest.raises(ValueError, match="OneDrive"):
         state_directory(
-            environ={"SAFETY_LAB_STATE_DIR": str(sync / "runs"), "OneDriveCommercial": str(sync)},
+            environ={"ASSAY_STATE_DIR": str(sync / "runs"), "OneDriveCommercial": str(sync)},
             workspace=tmp_path / "source",
         )
 

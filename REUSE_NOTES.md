@@ -1,4 +1,4 @@
-# TraceFrame Safety Lab — Existing Code and Integration Notes
+# Assay — Existing Code and Integration Notes
 
 Reviewed October 15, 2026. Read-only inspection of local cached bare repositories. No fetch, implementation changes, or test runs were performed in these repositories for this plan. The recorded commits are reproducible planning baselines, not assertions about current remote HEAD.
 
@@ -91,4 +91,4 @@ Keep the lab's new contracts and gateway implementation separate from upstream p
 
 Potential upstream work after v1: a stable evidence-import/export contract, explicit non-global run contexts, stronger source parsing, receipt links, and generalized AMOS task/worker ports. Each should be a separate justified change with its own tests and review.
 
-No existing project metric should appear as a Safety Lab result. Reuse implementation knowledge and verified interfaces; generate the new study's evidence through its own frozen protocol.
+No existing project metric should appear as an Assay result. Reuse implementation knowledge and verified interfaces; generate the new study's evidence through its own frozen protocol.

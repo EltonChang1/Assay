@@ -26,9 +26,9 @@ jobs:
       - run: uv run --locked --extra traceframe --extra inspect mypy
       - run: uv run --locked --extra traceframe --extra inspect pytest
         env:
-          SAFETY_LAB_TRACEFRAME_TESTS: "1"
-          SAFETY_LAB_INSPECT_TESTS: "1"
-      - run: uv run --locked safety-lab doctor
+          ASSAY_TRACEFRAME_TESTS: "1"
+          ASSAY_INSPECT_TESTS: "1"
+      - run: uv run --locked assay doctor
       - run: uv run --locked python -m evaluator
       - run: uv build --no-sources
   sandbox:
@@ -43,4 +43,4 @@ jobs:
       - run: uv sync --locked
       - run: uv run --locked pytest tests/test_sandbox_integration.py -v
         env:
-          SAFETY_LAB_DOCKER_TESTS: "1"
+          ASSAY_DOCKER_TESTS: "1"

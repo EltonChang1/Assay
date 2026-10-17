@@ -21,18 +21,18 @@ from uuid import uuid4
 
 from pydantic import JsonValue
 
-from safety_lab.agents.model import ModelClient
-from safety_lab.contracts import canonical_json_bytes
-from safety_lab.contracts.episode import (
+from assay.agents.model import ModelClient
+from assay.contracts import canonical_json_bytes
+from assay.contracts.episode import (
     EpisodeTranscript,
     Message,
     ModelUsage,
     ToolCall,
     ToolSpec,
 )
-from safety_lab.contracts.execution import ExecutionReceipt, WorkerSuccess
-from safety_lab.contracts.report import ReportRevision
-from safety_lab.contracts.review import (
+from assay.contracts.execution import ExecutionReceipt, WorkerSuccess
+from assay.contracts.report import ReportRevision
+from assay.contracts.review import (
     REASON_CODES,
     CheckSummary,
     ClaimEvidence,
@@ -45,7 +45,7 @@ from safety_lab.contracts.review import (
     ReviewTranscript,
     ViewKind,
 )
-from safety_lab.publication import AttemptLease, Publisher
+from assay.publication import AttemptLease, Publisher
 
 REVIEWER_PROMPT = (
     "You review one candidate quantitative report before release. Decide whether every "

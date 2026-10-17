@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from decimal import Decimal
 
-from safety_lab.contracts import TaskSpec
-from safety_lab.contracts.report import ClaimRecord
+from assay.contracts import TaskSpec
+from assay.contracts.report import ClaimRecord
 
 RENDERER_VERSION = "structured-text-1.0"
 
@@ -32,7 +32,7 @@ def render_report(task: TaskSpec, claims: tuple[ClaimRecord, ...]) -> bytes:
     if {slot.slot_id for slot in task.required_slots} - supplied.keys():
         raise ValueError("Report is missing a required answer slot")
     lines = [
-        "TraceFrame Safety Lab",
+        "Assay",
         "Settled order report",
         f"Data basis: {task.report_semantics} snapshot",
         f"Interval (UTC, end exclusive): {task.time_scope.start.isoformat()} / "

@@ -15,7 +15,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from safety_lab.adapters.traceframe import (
+from assay.adapters.traceframe import (
     AUDIT_LIMITATIONS,
     TRACEFRAME_COMMIT,
     TRACEFRAME_LICENSE_SHA256,
@@ -27,8 +27,8 @@ from safety_lab.adapters.traceframe import (
     _digest,
     validate_audit_bundle,
 )
-from safety_lab.contracts import VersionedModel, canonical_json_bytes
-from safety_lab.contracts.report import AuditBundle
+from assay.contracts import VersionedModel, canonical_json_bytes
+from assay.contracts.report import AuditBundle
 
 
 def _upstream_license() -> bytes:
@@ -108,7 +108,7 @@ def project(bundle: AuditBundle, destination: Path) -> None:
     lineage = importlib.import_module("traceframe.lineage")
     runs = importlib.import_module("traceframe.runs")
     report_module = importlib.import_module("traceframe.report")
-    trace_dir = traceframe.start("Safety Lab researcher audit " + bundle.report.run_id)
+    trace_dir = traceframe.start("Assay researcher audit " + bundle.report.run_id)
     active_run = runs.current_run()
     if active_run is None:
         raise TraceFrameExportError("TraceFrame failed to initialize an isolated run")

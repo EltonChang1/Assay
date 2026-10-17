@@ -11,11 +11,11 @@ from typing import Any
 
 from pydantic import ValidationError
 
-from safety_lab import __version__
-from safety_lab.config import state_directory
-from safety_lab.contracts.experiment import ExperimentConfig
-from safety_lab.diagnostics import doctor
-from safety_lab.execution.docker import WorkerUnavailableError
+from assay import __version__
+from assay.config import state_directory
+from assay.contracts.experiment import ExperimentConfig
+from assay.diagnostics import doctor
+from assay.execution.docker import WorkerUnavailableError
 
 
 def _print(value: Any) -> None:
@@ -23,7 +23,7 @@ def _print(value: Any) -> None:
 
 
 def _parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="TraceFrame Safety Lab development foundation")
+    parser = argparse.ArgumentParser(description="Assay development foundation")
     parser.add_argument("--version", action="version", version=__version__)
     commands = parser.add_subparsers(dest="command", required=True)
     diagnostic = commands.add_parser("doctor", help="Check offline setup; never calls models")
@@ -85,7 +85,7 @@ def main(argv: list[str] | None = None) -> int:
             return 0
         if args.command == "worker":
             if args.worker_command == "build":
-                from safety_lab.execution.docker import build_worker
+                from assay.execution.docker import build_worker
 
                 source = Path(__file__).resolve().parents[2]
                 if not (source / "sandbox" / "Dockerfile").is_file():
@@ -93,12 +93,12 @@ def main(argv: list[str] | None = None) -> int:
                 image = build_worker(source)
                 _print({"image": image.model_dump(mode="json"), "isolation_validation": "pending"})
                 return 0
-            from safety_lab.datasets import (
+            from assay.datasets import (
                 generate_sales_fixture,
                 validate_public_bundle,
                 write_public_bundle,
             )
-            from safety_lab.gateway.service import execute_query
+            from assay.gateway.service import execute_query
 
             fixture = generate_sales_fixture()
             bundle = state_directory() / "worker-smoke" / fixture.public_task.task_id
@@ -126,7 +126,7 @@ def main(argv: list[str] | None = None) -> int:
             )
             return int(not success)
         if args.command == "query":
-            from safety_lab.gateway.service import execute_query
+            from assay.gateway.service import execute_query
 
             path = args.manifest
             bundle = path.parent if path.name == "manifest.json" else path
@@ -147,13 +147,13 @@ def main(argv: list[str] | None = None) -> int:
             )
             return int(outcome.receipt.status != "success")
         if args.command == "receipt":
-            from safety_lab.evidence.store import EvidenceStore
+            from assay.evidence.store import EvidenceStore
 
             receipt = EvidenceStore(state_directory() / "evidence").get_execution(args.id)
             _print(receipt.model_dump(mode="json"))
             return 0
         if args.command == "dataset":
-            from safety_lab.datasets import (
+            from assay.datasets import (
                 generate_sales_fixture,
                 validate_public_bundle,
                 write_public_bundle,

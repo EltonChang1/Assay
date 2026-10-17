@@ -19,8 +19,8 @@ from uuid import uuid4
 
 from pydantic import ValidationError
 
-from safety_lab.contracts import DatasetSnapshot, TaskSpec, VersionedModel, canonical_json_bytes
-from safety_lab.contracts.execution import ExecutionReceipt, WorkerSuccess
+from assay.contracts import DatasetSnapshot, TaskSpec, VersionedModel, canonical_json_bytes
+from assay.contracts.execution import ExecutionReceipt, WorkerSuccess
 
 SCHEMA_VERSION = 3
 

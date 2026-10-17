@@ -1,6 +1,6 @@
 """Repository-only private scoring and trusted fixture validation.
 
-This package is deliberately outside the installed ``safety_lab`` package. It
+This package is deliberately outside the installed ``assay`` package. It
 must not be mounted in analyst/reviewer workers or imported by runtime checks.
 The committed examples are exposed development fixtures, never held-out truth.
 """

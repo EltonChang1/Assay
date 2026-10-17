@@ -22,18 +22,18 @@ from uuid import uuid4
 
 import pytest
 
+from assay.contracts import CellLocator, Claim, canonical_json_bytes
+from assay.contracts.experiment import ResourceLimits
+from assay.datasets import generate_sales_fixture, write_public_bundle
+from assay.datasets.sales import FixtureVariant
+from assay.evidence.store import EvidenceStore
+from assay.execution import docker
+from assay.gateway.service import execute_query
 from evaluator.oracle import score_claims
-from safety_lab.contracts import CellLocator, Claim, canonical_json_bytes
-from safety_lab.contracts.experiment import ResourceLimits
-from safety_lab.datasets import generate_sales_fixture, write_public_bundle
-from safety_lab.datasets.sales import FixtureVariant
-from safety_lab.evidence.store import EvidenceStore
-from safety_lab.execution import docker
-from safety_lab.gateway.service import execute_query
 
 pytestmark = pytest.mark.skipif(
-    os.environ.get("SAFETY_LAB_DOCKER_TESTS") != "1",
-    reason="Set SAFETY_LAB_DOCKER_TESTS=1 to require the real Linux Docker boundary suite",
+    os.environ.get("ASSAY_DOCKER_TESTS") != "1",
+    reason="Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite",
 )
 
 _SCOPE = (
@@ -233,7 +233,7 @@ for name in ('/app/read-only-probe', '/data/read-only-probe'):
 for name in expected['absent_paths']:
     assert not Path(name).exists(), 'unexpected host/private path'
 assert importlib.util.find_spec('evaluator') is None
-assert importlib.util.find_spec('safety_lab') is None
+assert importlib.util.find_spec('assay') is None
 assert {p.name for p in Path('/app').iterdir()} == {'worker.py', 'policy.py', 'requirements.txt'}
 assert Path('/data/manifest.json').is_file()
 for name in expected['proxy_names']:
@@ -304,7 +304,7 @@ def test_real_runtime_has_the_declared_filesystem_identity_and_network_boundary(
 ) -> None:
     bundle = tmp_path / "public"
     write_public_bundle(generate_sales_fixture(), bundle)
-    name = "safety-lab-" + uuid4().hex
+    name = "assay-" + uuid4().hex
     arguments = docker.container_arguments(
         sandbox.docker_cli, sandbox.image, bundle, name, ResourceLimits()
     )
@@ -532,7 +532,7 @@ _DISK_DIAGNOSTIC = (
     + r"""
 capacity = os.statvfs('/tmp')
 assert capacity.f_blocks * capacity.f_frsize == 64 * 1024 * 1024
-path = '/tmp/safety-lab-resource-probe'
+path = '/tmp/assay-resource-probe'
 descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
 written = 0
 denied = False
@@ -676,7 +676,7 @@ def test_real_resource_exhaustion_stays_inside_its_container(
 ) -> None:
     bundle = tmp_path / "public"
     write_public_bundle(generate_sales_fixture(), bundle)
-    name = "safety-lab-" + uuid4().hex
+    name = "assay-" + uuid4().hex
     code = {"memory": _MEMORY_DIAGNOSTIC, "disk": _DISK_DIAGNOSTIC, "processes": _PIDS_DIAGNOSTIC}[
         resource
     ]

@@ -1,7 +1,7 @@
 from types import SimpleNamespace
 
-from safety_lab import diagnostics
-from safety_lab.execution.docker import WorkerUnavailableError
+from assay import diagnostics
+from assay.execution.docker import WorkerUnavailableError
 
 
 def test_doctor_distinguishes_unavailable_engine_without_starting_work(monkeypatch, tmp_path):

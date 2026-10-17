@@ -10,9 +10,9 @@ import pytest
 from pydantic import ValidationError
 from test_evidence import captured_execution, table_counts
 
-from safety_lab.contracts import DatasetSnapshot, TaskSpec, canonical_json_bytes
-from safety_lab.evidence import EvidenceIntegrityError, EvidenceStore
-from safety_lab.evidence.store import SCHEMA_VERSION
+from assay.contracts import DatasetSnapshot, TaskSpec, canonical_json_bytes
+from assay.evidence import EvidenceIntegrityError, EvidenceStore
+from assay.evidence.store import SCHEMA_VERSION
 
 
 def test_typed_records_and_exact_blobs_round_trip_with_stable_content_identity(tmp_path):

@@ -15,7 +15,7 @@ from pathlib import Path
 
 from pydantic import ValidationError
 
-from safety_lab.contracts import DatasetSnapshot, TaskSpec, VersionedModel, canonical_json_bytes
+from assay.contracts import DatasetSnapshot, TaskSpec, VersionedModel, canonical_json_bytes
 
 from .sales import (
     TABLE_COLUMNS,

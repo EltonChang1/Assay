@@ -15,7 +15,7 @@ from phase3_support import (
     make_report,
 )
 
-from safety_lab.verification import required_check_keys, verify_report
+from assay.verification import required_check_keys, verify_report
 
 
 def outcomes(bundle, slot="settled_revenue_usd"):

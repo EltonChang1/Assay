@@ -8,8 +8,8 @@ from importlib.metadata import version
 from pathlib import Path
 from typing import Any
 
-from safety_lab.config import state_directory
-from safety_lab.execution.docker import WorkerUnavailableError, _docker_path, load_worker
+from assay.config import state_directory
+from assay.execution.docker import WorkerUnavailableError, _docker_path, load_worker
 
 
 def doctor(*, workspace: Path | None = None) -> dict[str, Any]:

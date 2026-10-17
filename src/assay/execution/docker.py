@@ -19,11 +19,11 @@ from uuid import uuid4
 
 from pydantic import Field
 
-from safety_lab.config import state_directory
-from safety_lab.contracts.base import VersionedModel, canonical_json_bytes
-from safety_lab.contracts.execution import WorkerFailure, WorkerSuccess
-from safety_lab.contracts.experiment import ResourceLimits
-from safety_lab.contracts.snapshot import Sha256
+from assay.config import state_directory
+from assay.contracts.base import VersionedModel, canonical_json_bytes
+from assay.contracts.execution import WorkerFailure, WorkerSuccess
+from assay.contracts.experiment import ResourceLimits
+from assay.contracts.snapshot import Sha256
 
 BASE_IMAGE = (
     "python:3.12-slim@sha256:2b4f19dae3a777dfc3b76730bda1e82e1f66ab2a2686fa93ca78edbfb4f04ffe"
@@ -91,7 +91,7 @@ def _docker_path() -> str:
 
 
 def _policy_source() -> Path:
-    from safety_lab.gateway import policy
+    from assay.gateway import policy
 
     assert policy.__file__ is not None
     return Path(policy.__file__)
@@ -159,7 +159,7 @@ def load_worker(state: Path | None = None) -> WorkerImage:
         image = WorkerImage.model_validate_json((root / "worker.json").read_bytes())
     except (ValueError, OSError) as exc:
         raise WorkerUnavailableError(
-            "Build the pinned worker with safety-lab worker build first"
+            "Build the pinned worker with assay worker build first"
         ) from exc
     if image.base_image != BASE_IMAGE:
         raise WorkerUnavailableError("Worker base image differs from current pin; rebuild required")
@@ -182,7 +182,7 @@ def container_arguments(
     docker: str, image: WorkerImage, bundle: Path, name: str, limits: ResourceLimits
 ) -> list[str]:
     """No shell, host credentials, writable host mount, Docker socket, or host network."""
-    if not re.fullmatch(r"safety-lab-[0-9a-f]{32}", name):
+    if not re.fullmatch(r"assay-[0-9a-f]{32}", name):
         raise ValueError("Container name must be host-generated")
     source = str(bundle.resolve())
     if "," in source:
@@ -226,7 +226,7 @@ def execute_container(
     docker = _docker_path()
     if cancel is not None and cancel.is_set():
         return ContainerOutcome("cancelled", error_code="cancelled_before_dispatch")
-    name = "safety-lab-" + uuid4().hex
+    name = "assay-" + uuid4().hex
     request = json.dumps(
         {
             "schema_version": "1.0",

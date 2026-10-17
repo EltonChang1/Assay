@@ -1,3 +1,3 @@
-from safety_lab.cli import main
+from assay.cli import main
 
 raise SystemExit(main())

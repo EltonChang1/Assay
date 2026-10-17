@@ -12,7 +12,7 @@ from typing import Annotated, Literal
 
 from pydantic import Field
 
-from safety_lab.contracts import (
+from assay.contracts import (
     AnswerSlot,
     ColumnSpec,
     DatasetSnapshot,
@@ -23,7 +23,7 @@ from safety_lab.contracts import (
     VersionedModel,
     canonical_json_bytes,
 )
-from safety_lab.contracts.task import (
+from assay.contracts.task import (
     SETTLED_REVENUE_DEFINITION,
     SETTLED_REVENUE_EXCLUSION_RULES,
     SETTLED_REVENUE_INCLUSION_RULES,

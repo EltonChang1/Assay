@@ -18,10 +18,10 @@ from typing import Annotated, Final, Literal
 
 from pydantic import Field, ValidationError
 
-from safety_lab.contracts import VersionedModel, canonical_json_bytes
-from safety_lab.contracts.report import AuditBundle
-from safety_lab.contracts.snapshot import Sha256
-from safety_lab.evidence.store import EvidenceIntegrityError, _validate_execution
+from assay.contracts import VersionedModel, canonical_json_bytes
+from assay.contracts.report import AuditBundle
+from assay.contracts.snapshot import Sha256
+from assay.evidence.store import EvidenceIntegrityError, _validate_execution
 
 TRACEFRAME_COMMIT: Final = "422befdcbadb95024b75b2e4ac381cb6716b97c3"
 TRACEFRAME_VERSION: Final = "0.1.0"
@@ -106,7 +106,7 @@ def validate_audit_bundle(bundle: AuditBundle) -> AuditBundle:
                 raise TraceFrameExportError("audit execution belongs to another run")
         if not set(checked.report.execution_ids).issubset(executions):
             raise TraceFrameExportError("audit is missing a referenced execution")
-        from safety_lab.publication.rendering import render_report
+        from assay.publication.rendering import render_report
 
         if (
             _digest(render_report(checked.task, checked.report.claims))
@@ -303,7 +303,7 @@ def export_traceframe(
                 [
                     sys.executable,
                     "-m",
-                    "safety_lab.adapters._traceframe_worker",
+                    "assay.adapters._traceframe_worker",
                     str(input_path),
                     str(output_path),
                 ],

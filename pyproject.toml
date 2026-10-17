@@ -3,7 +3,7 @@ requires = ["hatchling==1.32.4"]
 build-backend = "hatchling.build"
 
 [project]
-name = "traceframe-safety-lab"
+name = "assay"
 version = "0.0.1"
 description = "Reproducible foundations for evaluating evidence-aware AI analyst oversight"
 readme = "README.md"
@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [project.scripts]
-safety-lab = "safety_lab.cli:main"
+assay = "assay.cli:main"
 
 [project.optional-dependencies]
 traceframe = [
@@ -36,7 +36,7 @@ dev = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/safety_lab"]
+packages = ["src/assay"]
 
 [tool.ruff]
 target-version = "py312"
@@ -48,7 +48,7 @@ select = ["E", "F", "I", "UP", "B", "SIM"]
 [tool.mypy]
 python_version = "3.12"
 strict = true
-files = ["src/safety_lab", "evaluator", "sandbox/worker.py"]
+files = ["src/assay", "evaluator", "sandbox/worker.py"]
 plugins = ["pydantic.mypy"]
 
 [[tool.mypy.overrides]]
