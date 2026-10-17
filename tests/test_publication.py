@@ -6,9 +6,8 @@ import sqlite3
 import pytest
 from phase3_support import CORRECT_SQL, COUNT_SQL, DUPLICATED_SQL, SCOPE, digest, make_lab
 
-from evaluator.oracle import score_claims
-from safety_lab.contracts.report import CheckBundle
-from safety_lab.publication import (
+from assay.contracts.report import CheckBundle
+from assay.publication import (
     FencingError,
     InvalidTransitionError,
     PublicationError,
@@ -17,6 +16,7 @@ from safety_lab.publication import (
     StaleSourceError,
     evaluate_policy,
 )
+from evaluator.oracle import score_claims
 
 SOURCE = "sales-q1"
 

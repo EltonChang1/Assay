@@ -9,13 +9,13 @@ from phase3_support import CORRECT_SQL
 from test_publication import setup, through_decision
 from test_publication_recovery import race
 
-from safety_lab.adapters import TraceFrameExportError, export_traceframe, read_traceframe_export
-from safety_lab.contracts import canonical_json_bytes
+from assay.adapters import TraceFrameExportError, export_traceframe, read_traceframe_export
+from assay.contracts import canonical_json_bytes
 
-REQUIRED = os.environ.get("SAFETY_LAB_TRACEFRAME_TESTS") == "1"
+REQUIRED = os.environ.get("ASSAY_TRACEFRAME_TESTS") == "1"
 if importlib.util.find_spec("traceframe") is None:
     if REQUIRED:
-        raise RuntimeError("SAFETY_LAB_TRACEFRAME_TESTS=1 requires the pinned traceframe extra")
+        raise RuntimeError("ASSAY_TRACEFRAME_TESTS=1 requires the pinned traceframe extra")
     pytest.skip(
         "Install the pinned extra (uv sync --extra traceframe) to run adapter tests",
         allow_module_level=True,

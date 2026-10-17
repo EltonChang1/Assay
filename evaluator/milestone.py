@@ -12,9 +12,9 @@ from decimal import Decimal
 
 import duckdb
 
+from assay.contracts import Claim
+from assay.datasets import SalesFixture, generate_sales_fixture
 from evaluator.oracle import derive_truth, score_claims
-from safety_lab.contracts import Claim
-from safety_lab.datasets import SalesFixture, generate_sales_fixture
 
 
 @dataclass(frozen=True)

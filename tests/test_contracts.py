@@ -6,7 +6,7 @@ from decimal import Decimal
 import pytest
 from pydantic import ValidationError
 
-from safety_lab.contracts import (
+from assay.contracts import (
     AnswerSlot,
     CellLocator,
     Claim,
@@ -15,7 +15,7 @@ from safety_lab.contracts import (
     Tolerance,
     canonical_json_bytes,
 )
-from safety_lab.datasets import generate_sales_fixture
+from assay.datasets import generate_sales_fixture
 
 
 def claim_data() -> dict:

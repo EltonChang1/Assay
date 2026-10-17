@@ -1,4 +1,4 @@
-# TraceFrame Safety Lab — Implementation Backlog
+# Assay — Implementation Backlog
 
 Implementation started October 16, 2026. The tables below retain the planned acceptance criteria; implemented and pending work is recorded with validation evidence in [implementation status](docs/IMPLEMENTATION_STATUS.md). The full decisions and study protocol are in [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md); source integration constraints are in [REUSE_NOTES.md](REUSE_NOTES.md).
 
@@ -156,17 +156,17 @@ Gate G9: reproducible public release ready. Actual remote publication or announc
 These names are specifications to implement, not commands that work today:
 
 ~~~text
-safety-lab doctor
-safety-lab dataset build --manifest <public-source-config>
-safety-lab dataset validate --manifest <case-manifest>
-safety-lab eval --spec <experiment-spec> --dry-run
-safety-lab eval --spec <experiment-spec> --max-cost-usd <cap>
-safety-lab resume --experiment <id> --max-cost-usd <remaining-cap>
-safety-lab cancel --experiment <id>
-safety-lab score --experiment <id> --oracle-manifest <private-path>
-safety-lab analyze --experiment <id>
-safety-lab replay --run <id>
-safety-lab export --experiment <id> --profile public-demo
+assay doctor
+assay dataset build --manifest <public-source-config>
+assay dataset validate --manifest <case-manifest>
+assay eval --spec <experiment-spec> --dry-run
+assay eval --spec <experiment-spec> --max-cost-usd <cap>
+assay resume --experiment <id> --max-cost-usd <remaining-cap>
+assay cancel --experiment <id>
+assay score --experiment <id> --oracle-manifest <private-path>
+assay analyze --experiment <id>
+assay replay --run <id>
+assay export --experiment <id> --profile public-demo
 ~~~
 
 Doctor and dry-run commands must not incur model charges or print secrets. Scoring runs only in the private evaluator context. Replay uses saved evidence; a fresh model rerun is a separately identified experiment. All live model commands validate a budget before dispatch.

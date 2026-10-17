@@ -8,17 +8,17 @@ from test_episodes import call, submit_from_last
 from test_review import decide, view_of
 
 from evaluator.oracle import score_claims
-from safety_lab.agents import (
+from assay.agents import (
     CORRECTION_PROMPT,
     EpisodeLimits,
     ScriptedModel,
     run_analyst_episode,
     run_arm_episode,
 )
-from safety_lab.contracts.episode import EpisodeRecord, EpisodeTranscript, Message, ToolCall
-from safety_lab.contracts.policy import ARMS
-from safety_lab.publication import Publisher
-from safety_lab.review import ReviewConfig
+from assay.contracts.episode import EpisodeRecord, EpisodeTranscript, Message, ToolCall
+from assay.contracts.policy import ARMS
+from assay.publication import Publisher
+from assay.review import ReviewConfig
 
 SOURCE = "sales-q1"
 GRAIN_FAILURE = "fail:query_grain:settled_revenue_usd"

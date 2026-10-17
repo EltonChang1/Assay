@@ -7,12 +7,11 @@ import pytest
 from phase3_support import CORRECT_SQL, DUPLICATED_SQL, digest, make_lab
 from test_episodes import call, submit_from_last
 
-from evaluator.oracle import score_claims
-from safety_lab.agents import ScriptedModel, run_analyst_episode
-from safety_lab.contracts.episode import Message
-from safety_lab.contracts.review import ReviewDecision, ReviewTranscript
-from safety_lab.publication import PublicationError, Publisher, evaluate_policy
-from safety_lab.review import (
+from assay.agents import ScriptedModel, run_analyst_episode
+from assay.contracts.episode import Message
+from assay.contracts.review import ReviewDecision, ReviewTranscript
+from assay.publication import PublicationError, Publisher, evaluate_policy
+from assay.review import (
     ReviewConfig,
     ReviewLimits,
     build_corpus,
@@ -21,6 +20,7 @@ from safety_lab.review import (
     parse_decision,
     review_tool_specs,
 )
+from evaluator.oracle import score_claims
 
 SOURCE = "sales-q1"
 

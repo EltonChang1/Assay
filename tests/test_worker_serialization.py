@@ -7,7 +7,7 @@ from decimal import Decimal
 
 import pytest
 
-from safety_lab.contracts.execution import WorkerFailure, WorkerSuccess
+from assay.contracts.execution import WorkerFailure, WorkerSuccess
 from sandbox.worker import (
     MAX_REQUEST_BYTES,
     Request,

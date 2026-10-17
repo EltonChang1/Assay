@@ -4,10 +4,10 @@ from decimal import Decimal
 
 import pytest
 
-from safety_lab.contracts import CellLocator, Claim
-from safety_lab.contracts.report import ClaimRecord
-from safety_lab.datasets import generate_sales_fixture
-from safety_lab.publication.rendering import render_report
+from assay.contracts import CellLocator, Claim
+from assay.contracts.report import ClaimRecord
+from assay.datasets import generate_sales_fixture
+from assay.publication.rendering import render_report
 
 
 def record(task, slot="settled_revenue_usd", value="200.00", claim_id="claim-1", **updates):
@@ -35,7 +35,7 @@ def test_exact_report_bytes_are_deterministic_and_order_independent():
     count = record(task, "settled_order_count", "3", "claim-2")
     rendered = render_report(task, (revenue, count))
     assert rendered == (
-        b"TraceFrame Safety Lab\n"
+        b"Assay\n"
         b"Settled order report\n"
         b"Data basis: current snapshot\n"
         b"Interval (UTC, end exclusive): 2026-01-01T00:00:00+00:00 / 2026-04-01T00:00:00+00:00\n"

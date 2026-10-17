@@ -1,16 +1,14 @@
 import json
 from pathlib import Path
 
-from safety_lab.cli import main
+from assay.cli import main
 
 
 def test_doctor_is_charge_free() -> None:
     # No credentials or provider SDK is needed for the implemented diagnostic path.
     import subprocess
 
-    completed = subprocess.run(
-        ["safety-lab", "doctor"], check=False, capture_output=True, text=True
-    )
+    completed = subprocess.run(["assay", "doctor"], check=False, capture_output=True, text=True)
     assert completed.returncode == 0
     value = json.loads(completed.stdout)
     assert value["offline_ready"]
@@ -38,5 +36,5 @@ def test_cli_build_validate_and_refuse_overwrite(tmp_path: Path) -> None:
 
 
 def test_missing_receipt_is_a_cli_error(tmp_path: Path, monkeypatch) -> None:
-    monkeypatch.setenv("SAFETY_LAB_STATE_DIR", str(tmp_path / "state"))
+    monkeypatch.setenv("ASSAY_STATE_DIR", str(tmp_path / "state"))
     assert main(["receipt", "--id", "execution-does-not-exist"]) == 1

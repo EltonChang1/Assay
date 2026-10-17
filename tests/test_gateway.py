@@ -4,13 +4,13 @@ import stat
 
 import pytest
 
-from safety_lab.contracts import canonical_json_bytes
-from safety_lab.contracts.execution import WorkerSuccess
-from safety_lab.datasets import generate_sales_fixture, validate_public_bundle, write_public_bundle
-from safety_lab.evidence.store import EvidenceStore
-from safety_lab.execution.docker import ContainerOutcome, WorkerImage, WorkerUnavailableError
-from safety_lab.gateway import service
-from safety_lab.gateway.policy import SQLPolicyError
+from assay.contracts import canonical_json_bytes
+from assay.contracts.execution import WorkerSuccess
+from assay.datasets import generate_sales_fixture, validate_public_bundle, write_public_bundle
+from assay.evidence.store import EvidenceStore
+from assay.execution.docker import ContainerOutcome, WorkerImage, WorkerUnavailableError
+from assay.gateway import service
+from assay.gateway.policy import SQLPolicyError
 
 
 def setup_gateway(tmp_path, monkeypatch, result=None, outcome=None):

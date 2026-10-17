@@ -11,8 +11,8 @@ import pytest
 from phase3_support import CORRECT_SQL, make_lab
 from test_publication import SOURCE, setup, submit, through_decision
 
-from safety_lab.evidence import EvidenceStore
-from safety_lab.publication import (
+from assay.evidence import EvidenceStore
+from assay.publication import (
     FencingError,
     InvalidTransitionError,
     Publisher,
@@ -148,8 +148,8 @@ def test_failure_inside_release_transaction_exposes_nothing_and_retry_succeeds(
 
 KILL_DURING_PUBLISH = """
 import os, sys
-from safety_lab.evidence import EvidenceStore
-from safety_lab.publication import AttemptLease, Publisher
+from assay.evidence import EvidenceStore
+from assay.publication import AttemptLease, Publisher
 
 store = EvidenceStore(sys.argv[1])
 original = store._record_event

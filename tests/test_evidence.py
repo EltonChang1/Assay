@@ -6,15 +6,15 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from safety_lab.contracts import canonical_json_bytes
-from safety_lab.contracts.execution import (
+from assay.contracts import canonical_json_bytes
+from assay.contracts.execution import (
     ExecutionReceipt,
     ResultCell,
     ResultColumn,
     WorkerSuccess,
 )
-from safety_lab.datasets import generate_sales_fixture
-from safety_lab.evidence import EvidenceConflictError, EvidenceIntegrityError, EvidenceStore
+from assay.datasets import generate_sales_fixture
+from assay.evidence import EvidenceConflictError, EvidenceIntegrityError, EvidenceStore
 
 
 def captured_execution(execution_id="execution-one"):

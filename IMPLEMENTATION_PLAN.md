@@ -1,4 +1,4 @@
-# TraceFrame Safety Lab — End-to-End Implementation Plan
+# Assay — End-to-End Implementation Plan
 
 Planning date: October 15, 2026. Reviewed and revised October 16, 2026, America/Los_Angeles. Status: completed planning package; research experiments are future work.
 
@@ -136,15 +136,15 @@ Default stack: Python 3.12, uv with a committed lockfile, Pydantic contracts, Du
 
 Use an initial static HTML viewer or Inspect viewer. Add a small FastAPI read API and React/TypeScript replay interface only after the CLI pilot works. Use ordinary structured logs and measured counters before adding external telemetry infrastructure.
 
-Keep live SQLite databases, worker scratch data, and mutable run state in a local non-synchronized directory such as %LOCALAPPDATA%/TraceFrameSafetyLab on Windows. When the source workspace is under OneDrive, synchronize finished immutable exports rather than active databases. Configure paths explicitly and test Windows/Linux path translation during setup.
+Keep live SQLite databases, worker scratch data, and mutable run state in a local non-synchronized directory such as %LOCALAPPDATA%/Assay on Windows. When the source workspace is under OneDrive, synchronize finished immutable exports rather than active databases. Configure paths explicitly and test Windows/Linux path translation during setup.
 
 Proposed layout; these modules and commands are implementation targets, not existing software:
 
 ~~~text
-traceframe-safety-lab/
+assay/
   pyproject.toml, uv.lock, README.md, LICENSE, SECURITY.md
   IMPLEMENTATION_PLAN.md, IMPLEMENTATION_BACKLOG.md, REUSE_NOTES.md
-  src/safety_lab/
+  src/assay/
     contracts/          # versioned public data models
     datasets/           # ingestion, snapshots, generator interfaces
     gateway/            # tool policy and authoritative execution capture

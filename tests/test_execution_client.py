@@ -6,9 +6,9 @@ import time
 import pytest
 from pydantic import ValidationError
 
-from safety_lab.contracts.execution import ResultCell, WorkerSuccess
-from safety_lab.contracts.experiment import ResourceLimits
-from safety_lab.execution import docker
+from assay.contracts.execution import ResultCell, WorkerSuccess
+from assay.contracts.experiment import ResourceLimits
+from assay.execution import docker
 
 
 def image():
@@ -86,7 +86,7 @@ def test_build_records_copied_policy_and_clears_proxy_args(tmp_path, monkeypatch
 
 def test_container_has_only_readonly_public_mount(tmp_path):
     args = docker.container_arguments(
-        "docker", image(), tmp_path, "safety-lab-" + "1" * 32, ResourceLimits()
+        "docker", image(), tmp_path, "assay-" + "1" * 32, ResourceLimits()
     )
     for flag in (
         "--network=none",

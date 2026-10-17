@@ -3,9 +3,9 @@ from decimal import Decimal, localcontext
 
 import pytest
 
+from assay.contracts import Claim, TimeScope, Tolerance
+from assay.datasets import generate_sales_fixture
 from evaluator.oracle import OracleInputError, derive_truth, score_claims
-from safety_lab.contracts import Claim, TimeScope, Tolerance
-from safety_lab.datasets import generate_sales_fixture
 
 
 def revenue_claim(fixture, value="200.00", **updates):

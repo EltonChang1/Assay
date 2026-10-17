@@ -7,19 +7,19 @@ import os
 import pytest
 from phase3_support import CORRECT_SQL, make_lab
 
-from safety_lab.agents import TOOL_SPECS, run_analyst_episode
-from safety_lab.contracts.episode import EpisodeTranscript, Message, ToolCall
-from safety_lab.publication import Publisher
+from assay.agents import TOOL_SPECS, run_analyst_episode
+from assay.contracts.episode import EpisodeTranscript, Message, ToolCall
+from assay.publication import Publisher
 
-REQUIRED = os.environ.get("SAFETY_LAB_INSPECT_TESTS") == "1"
+REQUIRED = os.environ.get("ASSAY_INSPECT_TESTS") == "1"
 if importlib.util.find_spec("inspect_ai") is None:
     if REQUIRED:
-        raise RuntimeError("SAFETY_LAB_INSPECT_TESTS=1 requires the inspect extra")
+        raise RuntimeError("ASSAY_INSPECT_TESTS=1 requires the inspect extra")
     pytest.skip("Install the inspect extra to run Inspect adapter tests", allow_module_level=True)
 
 from inspect_ai.model import ChatMessageTool, ModelOutput  # noqa: E402
 
-from safety_lab.agents.inspect_client import InspectModelClient, to_inspect_messages  # noqa: E402
+from assay.agents.inspect_client import InspectModelClient, to_inspect_messages  # noqa: E402
 
 MOCK = "mockllm/model"
 

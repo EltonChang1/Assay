@@ -12,14 +12,14 @@ from collections.abc import Iterable
 from dataclasses import dataclass
 from decimal import Decimal, localcontext
 
-from safety_lab.contracts import Claim, TaskSpec
-from safety_lab.contracts.task import (
+from assay.contracts import Claim, TaskSpec
+from assay.contracts.task import (
     SETTLED_REVENUE_DEFINITION,
     SETTLED_REVENUE_EXCLUSION_RULES,
     SETTLED_REVENUE_INCLUSION_RULES,
     SETTLED_REVENUE_POPULATION,
 )
-from safety_lab.datasets import CanonicalOrderEvent
+from assay.datasets import CanonicalOrderEvent
 
 SCORER_VERSION = "canonical-order-events-v1"
 

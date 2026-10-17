@@ -2,7 +2,7 @@
 
 The first fixture family is defined by the [settled revenue task
 card](../task_cards/settled_revenue.md). Generate public tables and their public
-task contract using `safety_lab.datasets.generate_sales_fixture`.
+task contract using `assay.datasets.generate_sales_fixture`.
 
 The base variant contains order and item tables with one-to-many relationships.
 The equal-amount variant adds another order with an amount already present in the

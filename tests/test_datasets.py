@@ -7,8 +7,8 @@ from decimal import Decimal
 
 import pytest
 
-from safety_lab.contracts import DatasetSnapshot, TaskSpec, canonical_json_bytes
-from safety_lab.datasets import (
+from assay.contracts import DatasetSnapshot, TaskSpec, canonical_json_bytes
+from assay.datasets import (
     BundleValidationError,
     PrivateFixtureRecord,
     generate_sales_fixture,
@@ -16,7 +16,7 @@ from safety_lab.datasets import (
     write_private_fixture,
     write_public_bundle,
 )
-from safety_lab.datasets.sales import snapshot_identity
+from assay.datasets.sales import snapshot_identity
 
 
 @pytest.mark.parametrize("variant", ["base", "equal_amount", "insufficient", "historical"])
