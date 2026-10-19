@@ -157,6 +157,38 @@ def test_real_worker_does_not_return_a_truncated_row_result(
     )
 
 
+@pytest.mark.parametrize("variant", ["base", "equal_amount", "insufficient", "historical"])
+def test_real_order_preview_fetches_timestamptz_values(
+    sandbox: _Sandbox, tmp_path: Path, variant: FixtureVariant
+) -> None:
+    # COUNT(*) and revenue aggregates do not materialize a timestamp in Python.
+    # Exercise the actual preview shape that failed in the development pilot.
+    fixture = generate_sales_fixture(variant=variant)
+    bundle = tmp_path / "public"
+    write_public_bundle(fixture, bundle)
+    outcome = execute_query(
+        "SELECT * FROM orders ORDER BY order_id LIMIT 20", bundle, state=sandbox.state
+    )
+    assert outcome.receipt.status == "success", outcome.receipt.error_code
+    assert outcome.result is not None
+    assert outcome.result.row_count == len(fixture.orders)
+    timestamp_column = next(
+        index for index, column in enumerate(outcome.result.columns) if column.name == "occurred_at"
+    )
+    assert outcome.result.columns[timestamp_column].data_type == "TIMESTAMP WITH TIME ZONE"
+    expected = sorted(fixture.orders, key=lambda order: order.order_id)
+    for row, order in zip(outcome.result.rows, expected, strict=True):
+        cell = row[timestamp_column]
+        assert cell.type == "timestamp"
+        assert cell.value == order.occurred_at.isoformat()
+    assert outcome.receipt.worker_image_id == sandbox.image.image_id
+    assert outcome.receipt.result_id is not None
+    assert (
+        EvidenceStore(sandbox.state / "evidence").get_result(outcome.receipt.result_id)
+        == outcome.result
+    )
+
+
 @pytest.mark.parametrize(
     "query",
     [

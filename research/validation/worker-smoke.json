@@ -1,0 +1,29 @@
+{
+  "provisioning_smoke_passed": true,
+  "receipt": {
+    "elapsed_ms": 1688,
+    "error_code": null,
+    "exact_query": "SELECT SUM(amount_minor * 0.01) AS revenue_usd FROM orders WHERE status = 'settled'",
+    "execution_id": "execution-a8c724675ed54f4ca1c7e0596d41297e",
+    "finished_at": "2026-10-19T05:45:38.727104Z",
+    "normalized_query": "SELECT SUM(amount_minor * 0.01) AS revenue_usd FROM orders WHERE status = 'settled'",
+    "output_sha256": "1ebb5c3ab25e66c5c570192fcbb8c282b7a1a55c775e062d5d53809e9cdd9586",
+    "policy_version": "duckdb-select-1.0",
+    "preview_row_count": 1,
+    "preview_truncated": false,
+    "query_sha256": "22ab73d1192238b31eb52047218b89bc0fc2b036d3551fbf1cedd928c3596bb4",
+    "result_id": "result-1ebb5c3ab25e66c5c570192fcbb8c282b7a1a55c775e062d5d53809e9cdd9586",
+    "row_count": 1,
+    "run_id": "run-e8a44de6aeec46d09f6f666ea6afc2a4",
+    "schema_version": "1.0",
+    "snapshot_id": "snapshot-1fb864b3a3cd8045b47a907d2304e6234423f55cd0b91f02d1b2252035bd4001",
+    "snapshot_manifest_sha256": "291646595cb5269af3fec2ec5e8ecc00c80c0185b5a9f3c033912edf6cef4e1c",
+    "source_ids": [
+      "orders"
+    ],
+    "started_at": "2026-10-19T05:45:37.025109Z",
+    "status": "success",
+    "task_id": "task-864ab9c3e14ee656cbfcebf31d64b1ca",
+    "worker_image_id": "sha256:7afcc4b3a908da64495217dc43c5d76e39c2c5aa9bd6950bd0e9d6809d96fb7b"
+  }
+}

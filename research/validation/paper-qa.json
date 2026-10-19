@@ -1,0 +1,22 @@
+{
+  "schema_version": "assay-paper-qa-1.1",
+  "pdf_sha256": "ba08d1cd1cdc58c84e44ac4d38059642d51bb27e90e3ee96799f927cf695d865",
+  "source_sha256": "d49a038a350ae15eb582273ae81230392ebf2683efc55f2f79cfb1891bb6eb4f",
+  "builder_sha256": "cae4bbc1e00466fd728a99d4dbf89307cdab21c58618138dc63354695f016b20",
+  "pages": 16,
+  "rendered_pages": 16,
+  "render_resolution_dpi": 100,
+  "first_page_question_precedes_abstract": true,
+  "key_sections_and_numbers_extracted": true,
+  "all_18_references_cited": true,
+  "text_outside_page_bounds": [],
+  "report_issue_date_present": false,
+  "pdf_creation_and_modification_date_metadata_present": false,
+  "preserved_date_like_identifiers": [
+    "gpt-5.4-mini-2026-03-17"
+  ],
+  "bibliographic_publication_years_preserved": true,
+  "equations": "Embedded raster mathematics; visually checked, not verified through text extraction.",
+  "visual_review": "All 16 final page renderings inspected. Equations, both figures, five tables, references, margins, heading/table attachment and page transitions checked. Independent editorial reviewer inspected pages 9-16.",
+  "new_paid_calls": 0
+}

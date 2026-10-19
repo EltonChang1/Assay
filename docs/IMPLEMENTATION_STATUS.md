@@ -1,5 +1,14 @@
 # Implementation status
 
+## Current review: October 19, 2026
+
+The [canonical paper](../research/paper.md) and [repository review](../research/REPOSITORY_REVIEW.md) supersede the current-status claims in the historical record below. Fresh offline verification passed **436 tests**, with 29 skips, no failures/errors, and four warnings. Docker was unavailable; no new container result is claimed. All 80 implementation/configuration/test hashes in the October 18 validation match, and the ten numerical regressions reproduce exactly. See [reconciliation](../research/validation/repository-review.json).
+
+A paid development pilot has now run once: 24 assignments, 144 analyst calls, zero reviewer calls and zero releases; conservative settlement USD 0.160803. Every assignment exhausted the analyst allowance before submission. The recorded image fails timestamp previews because `pytz` is absent. Correct required-answer coverage is zero, and D/E efficacy is unmeasured. The dedicated sequential pilot journal enforces its frozen shared cap; general runtime combined reservations, lease expiry, recovery/admission fencing and private confirmation isolation remain unfinished. No paid rerun was made in the October 19 review.
+
+## Historical implementation record (October 16)
+
+
 Updated October 16, 2026. Branch: `main` at `92dec74`, which follows [PR #1](https://github.com/EltonChang1/Assay/pull/1) (foundation through Phase 3), [PR #2](https://github.com/EltonChang1/Assay/pull/2) (P4.1–P4.3), and the snapshot-permission fix. This record distinguishes implemented code, local and remote checks, and open phase gates. The reviewed plan remains the target; this is an initial implementation, not the completed study. The v0.1 publication slice works offline, and P4.1–P4.4 drive it from model episodes under arms A–E, using scripted models or Inspect's mock provider; no paid provider has been called.
 
 ## Implemented

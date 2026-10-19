@@ -1,0 +1,258 @@
+{
+  "cases": [
+    {
+      "canonical_reference_value": "200",
+      "case_id": "base.order_aggregation",
+      "fixture": "base",
+      "query_value": "200.00",
+      "regression_passed": true,
+      "score": {
+        "correct": true,
+        "required_slots_correct": 1,
+        "required_slots_total": 1,
+        "scorer_version": "canonical-order-events-v1",
+        "slots": [
+          {
+            "correct": true,
+            "reasons": [],
+            "required": true,
+            "slot_id": "settled_revenue_usd"
+          }
+        ],
+        "supporting_slots_correct": 0,
+        "supporting_slots_submitted": 0
+      },
+      "strategy": "order_aggregation"
+    },
+    {
+      "canonical_reference_value": "200",
+      "case_id": "base.duplicated_join",
+      "fixture": "base",
+      "query_value": "340.00",
+      "regression_passed": true,
+      "score": {
+        "correct": false,
+        "required_slots_correct": 0,
+        "required_slots_total": 1,
+        "scorer_version": "canonical-order-events-v1",
+        "slots": [
+          {
+            "correct": false,
+            "reasons": [
+              "wrong_value"
+            ],
+            "required": true,
+            "slot_id": "settled_revenue_usd"
+          }
+        ],
+        "supporting_slots_correct": 0,
+        "supporting_slots_submitted": 0
+      },
+      "strategy": "duplicated_join"
+    },
+    {
+      "canonical_reference_value": "200",
+      "case_id": "base.exists_filter",
+      "fixture": "base",
+      "query_value": "200.00",
+      "regression_passed": true,
+      "score": {
+        "correct": true,
+        "required_slots_correct": 1,
+        "required_slots_total": 1,
+        "scorer_version": "canonical-order-events-v1",
+        "slots": [
+          {
+            "correct": true,
+            "reasons": [],
+            "required": true,
+            "slot_id": "settled_revenue_usd"
+          }
+        ],
+        "supporting_slots_correct": 0,
+        "supporting_slots_submitted": 0
+      },
+      "strategy": "exists_filter"
+    },
+    {
+      "canonical_reference_value": "200",
+      "case_id": "base.grouped_item_join",
+      "fixture": "base",
+      "query_value": "200.00",
+      "regression_passed": true,
+      "score": {
+        "correct": true,
+        "required_slots_correct": 1,
+        "required_slots_total": 1,
+        "scorer_version": "canonical-order-events-v1",
+        "slots": [
+          {
+            "correct": true,
+            "reasons": [],
+            "required": true,
+            "slot_id": "settled_revenue_usd"
+          }
+        ],
+        "supporting_slots_correct": 0,
+        "supporting_slots_submitted": 0
+      },
+      "strategy": "grouped_item_join"
+    },
+    {
+      "canonical_reference_value": "200",
+      "case_id": "base.distinct_amount",
+      "fixture": "base",
+      "query_value": "200.00",
+      "regression_passed": true,
+      "score": {
+        "correct": true,
+        "required_slots_correct": 1,
+        "required_slots_total": 1,
+        "scorer_version": "canonical-order-events-v1",
+        "slots": [
+          {
+            "correct": true,
+            "reasons": [],
+            "required": true,
+            "slot_id": "settled_revenue_usd"
+          }
+        ],
+        "supporting_slots_correct": 0,
+        "supporting_slots_submitted": 0
+      },
+      "strategy": "distinct_amount"
+    },
+    {
+      "canonical_reference_value": "300",
+      "case_id": "equal_amount.order_aggregation",
+      "fixture": "equal_amount",
+      "query_value": "300.00",
+      "regression_passed": true,
+      "score": {
+        "correct": true,
+        "required_slots_correct": 1,
+        "required_slots_total": 1,
+        "scorer_version": "canonical-order-events-v1",
+        "slots": [
+          {
+            "correct": true,
+            "reasons": [],
+            "required": true,
+            "slot_id": "settled_revenue_usd"
+          }
+        ],
+        "supporting_slots_correct": 0,
+        "supporting_slots_submitted": 0
+      },
+      "strategy": "order_aggregation"
+    },
+    {
+      "canonical_reference_value": "300",
+      "case_id": "equal_amount.duplicated_join",
+      "fixture": "equal_amount",
+      "query_value": "440.00",
+      "regression_passed": true,
+      "score": {
+        "correct": false,
+        "required_slots_correct": 0,
+        "required_slots_total": 1,
+        "scorer_version": "canonical-order-events-v1",
+        "slots": [
+          {
+            "correct": false,
+            "reasons": [
+              "wrong_value"
+            ],
+            "required": true,
+            "slot_id": "settled_revenue_usd"
+          }
+        ],
+        "supporting_slots_correct": 0,
+        "supporting_slots_submitted": 0
+      },
+      "strategy": "duplicated_join"
+    },
+    {
+      "canonical_reference_value": "300",
+      "case_id": "equal_amount.exists_filter",
+      "fixture": "equal_amount",
+      "query_value": "300.00",
+      "regression_passed": true,
+      "score": {
+        "correct": true,
+        "required_slots_correct": 1,
+        "required_slots_total": 1,
+        "scorer_version": "canonical-order-events-v1",
+        "slots": [
+          {
+            "correct": true,
+            "reasons": [],
+            "required": true,
+            "slot_id": "settled_revenue_usd"
+          }
+        ],
+        "supporting_slots_correct": 0,
+        "supporting_slots_submitted": 0
+      },
+      "strategy": "exists_filter"
+    },
+    {
+      "canonical_reference_value": "300",
+      "case_id": "equal_amount.grouped_item_join",
+      "fixture": "equal_amount",
+      "query_value": "300.00",
+      "regression_passed": true,
+      "score": {
+        "correct": true,
+        "required_slots_correct": 1,
+        "required_slots_total": 1,
+        "scorer_version": "canonical-order-events-v1",
+        "slots": [
+          {
+            "correct": true,
+            "reasons": [],
+            "required": true,
+            "slot_id": "settled_revenue_usd"
+          }
+        ],
+        "supporting_slots_correct": 0,
+        "supporting_slots_submitted": 0
+      },
+      "strategy": "grouped_item_join"
+    },
+    {
+      "canonical_reference_value": "300",
+      "case_id": "equal_amount.distinct_amount",
+      "fixture": "equal_amount",
+      "query_value": "200.00",
+      "regression_passed": true,
+      "score": {
+        "correct": false,
+        "required_slots_correct": 0,
+        "required_slots_total": 1,
+        "scorer_version": "canonical-order-events-v1",
+        "slots": [
+          {
+            "correct": false,
+            "reasons": [
+              "wrong_value"
+            ],
+            "required": true,
+            "slot_id": "settled_revenue_usd"
+          }
+        ],
+        "supporting_slots_correct": 0,
+        "supporting_slots_submitted": 0
+      },
+      "strategy": "distinct_amount"
+    }
+  ],
+  "checks_passed": 10,
+  "checks_run": 10,
+  "model_calls": 0,
+  "passed": true,
+  "publication_boundary_tested": false,
+  "schema_version": "1.0",
+  "untrusted_execution_boundary_tested": false,
+  "validation_scope": "exposed development fixtures; developer-authored SQL only"
+}

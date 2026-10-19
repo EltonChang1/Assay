@@ -7,7 +7,6 @@ from phase3_support import CORRECT_SQL, DUPLICATED_SQL, make_lab
 from test_episodes import call, submit_from_last
 from test_review import decide, view_of
 
-from evaluator.oracle import score_claims
 from assay.agents import (
     CORRECTION_PROMPT,
     EpisodeLimits,
@@ -19,6 +18,7 @@ from assay.contracts.episode import EpisodeRecord, EpisodeTranscript, Message, T
 from assay.contracts.policy import ARMS
 from assay.publication import Publisher
 from assay.review import ReviewConfig
+from evaluator.oracle import score_claims
 
 SOURCE = "sales-q1"
 GRAIN_FAILURE = "fail:query_grain:settled_revenue_usd"

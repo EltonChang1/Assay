@@ -1,0 +1,68 @@
+{
+  "format": "assay-worker-timestamp-repair-1.0",
+  "purpose": "Repair the missing timezone conversion dependency observed in the original development pilot; no model experiments or paid calls.",
+  "original_pilot_worker_image_id": "sha256:7afcc4b3a908da64495217dc43c5d76e39c2c5aa9bd6950bd0e9d6809d96fb7b",
+  "repaired_worker": {
+    "schema_version": "1.0",
+    "image_id": "sha256:ba726804278fd8346d150f6b3dcab64d6eeeacffbf84331d7948030a8136f16a",
+    "base_image": "python:3.12-slim@sha256:2b4f19dae3a777dfc3b76730bda1e82e1f66ab2a2686fa93ca78edbfb4f04ffe",
+    "platform": "linux/amd64",
+    "policy_sha256": "84da12f0aaaeacc23c80249638b27b6699b7371637743cb1f0e84a5a0956f76c",
+    "worker_sha256": "15c76bc328f1e642ca1654669f9c927c1631940db93da02680d9ee8a42daec77",
+    "requirements_sha256": "a5d39b4ba931419f6c3dfe18dc4d9ba0a6c3bb570f15accb599547f8ddb6adea",
+    "client_version": "docker-process-1.0"
+  },
+  "dependency": {
+    "name": "pytz",
+    "version": "2026.5",
+    "scope": "worker only",
+    "wheel": "pytz-2026.5-py2.py3-none-any.whl",
+    "sha256": "e658af3757f9e26a9d25dd2aff38335acd92bc9104f890a894b2c1ba28311b03",
+    "source": "https://pypi.org/pypi/pytz/2026.5/json"
+  },
+  "validation": {
+    "command": "ASSAY_DOCKER_TESTS=1 uv run --locked python -m pytest tests/test_sandbox_integration.py -q --junitxml <external-local-state>/research/worker-timestamp-repair-junit.xml",
+    "tests": 32,
+    "passed": 32,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "duration_seconds": "74.466",
+    "timestamp_preview_cases": [
+      "test_real_order_preview_fetches_timestamptz_values[base]",
+      "test_real_order_preview_fetches_timestamptz_values[equal_amount]",
+      "test_real_order_preview_fetches_timestamptz_values[insufficient]",
+      "test_real_order_preview_fetches_timestamptz_values[historical]"
+    ],
+    "timestamp_preview_query": "SELECT * FROM orders ORDER BY order_id LIMIT 20",
+    "timestamp_preview_assertions": [
+      "execution success",
+      "all expected rows",
+      "TIMESTAMP WITH TIME ZONE column",
+      "exact typed UTC timestamp strings",
+      "repaired image identity",
+      "complete evidence-store result round trip"
+    ],
+    "junit_file": "research/validation/worker-timestamp-repair-junit.xml",
+    "junit_sha256": "1a81675a0b4db621b086663d1738ef1ce56e485b43449c4b32338809b8a7d296",
+    "worker_build_and_smoke": "passed with explicit physical local state path",
+    "smoke_execution_id": "execution-00be5f88e68844a7801da3ba42c2dd6d",
+    "docker_context": "desktop-linux",
+    "docker_server": "29.8.2",
+    "platform": "linux/amd64"
+  },
+  "source_sha256": {
+    "sandbox/Dockerfile": "bc79e8cac21461f9a2c0b1b3ef11e163505e9b6fd010184f2a1ec703b62c6606",
+    "sandbox/requirements.txt": "a5d39b4ba931419f6c3dfe18dc4d9ba0a6c3bb570f15accb599547f8ddb6adea",
+    "sandbox/worker.py": "15c76bc328f1e642ca1654669f9c927c1631940db93da02680d9ee8a42daec77",
+    "src/assay/gateway/policy.py": "84da12f0aaaeacc23c80249638b27b6699b7371637743cb1f0e84a5a0956f76c",
+    "tests/test_sandbox_integration.py": "b1c8668332fddb80ee13383580377dfb8cbbf12706a2dabddc1dca13a0f8a572",
+    "docs/DEPENDENCIES.md": "d813a092362f510b2e330c51e3039e1bca703aedd2f2025ccd66c3e0bd0d990c"
+  },
+  "scope_limitations": [
+    "The regression exercises fixed development fixtures and container behavior, not comparative oversight effectiveness.",
+    "The original failed pilot ledger and image remain unchanged.",
+    "The host application lock and dependencies are unchanged.",
+    "The default LocalAppData path is virtualized by the desktop app; explicit ASSAY_STATE_DIR using its physical LocalCache path was required for the build containment check."
+  ]
+}

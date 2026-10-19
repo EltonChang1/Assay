@@ -124,6 +124,23 @@ def _plain_select(node: exp.Expression) -> exp.Select:
     return node
 
 
+def _check_relation_bindings(select: exp.Select) -> None:
+    """Keep syntactic base-table names bound to the authenticated public rows.
+
+    The SQL capability policy resolves CTE scopes, but this deliberately narrow
+    semantic profile reasons directly about the public orders/item relations.
+    A same-named CTE or a positional column list can change that meaning without
+    changing the names inspected below. These shapes need a richer provenance
+    proof; they must not inherit facts about the original public tables.
+    """
+
+    for cte in select.find_all(exp.CTE):
+        if cte.alias_or_name.casefold() in {"orders", "order_items"}:
+            raise UnsupportedShape("CTE shadows a public relation used by this profile")
+    if any(alias.args.get("columns") for alias in select.find_all(exp.TableAlias)):
+        raise UnsupportedShape("explicit relation column renaming is outside this profile")
+
+
 def _simple_table(select: exp.Select, table: str) -> exp.Table:
     source = select.args.get("from_")
     if not isinstance(source, exp.From) or not isinstance(source.this, exp.Table):
@@ -383,6 +400,7 @@ def inspect_query(
         if not isinstance(parsed, exp.Expression):
             raise UnsupportedShape("query did not parse to a single expression")
         select = _plain_select(parsed)
+        _check_relation_bindings(select)
         if any(select.args.get(key) for key in ("group", "having", "distinct", "limit", "offset")):
             raise UnsupportedShape("top-level grouping, DISTINCT, or row selection is unsupported")
         order = _simple_table(select, "orders")

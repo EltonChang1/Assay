@@ -15,6 +15,7 @@ from phase3_support import (
     make_report,
 )
 
+from assay.publication.service import evaluate_policy
 from assay.verification import required_check_keys, verify_report
 
 
@@ -196,6 +197,65 @@ def test_unsupported_shapes_are_unknown_never_proof(tmp_path, monkeypatch, sql):
     assert result["cell_binding"] == "pass"
     semantic = {result[name] for name in ("query_metric", "query_grain", "query_population")}
     assert "pass" not in semantic and "unknown" in semantic
+
+
+@pytest.mark.parametrize(
+    ("prefix", "source", "expected"),
+    [
+        (
+            "WITH orders AS (SELECT * FROM orders WHERE amount_minor >= 10000) ",
+            "orders o",
+            "100.00",
+        ),
+        (
+            'WITH "OrDeRs" AS (SELECT * FROM orders WHERE amount_minor >= 10000) ',
+            '"OrDeRs" o',
+            "100.00",
+        ),
+        (
+            "WITH order_items AS (SELECT * FROM order_items WHERE order_id = 'O1') ",
+            "orders o JOIN (SELECT DISTINCT order_id FROM order_items) i USING (order_id)",
+            "100.00",
+        ),
+        (
+            "WITH item_orders(order_id, original_id) AS "
+            "(SELECT MIN('O1'), order_id FROM order_items GROUP BY order_id) ",
+            "orders o JOIN item_orders i USING (order_id)",
+            "300.00",
+        ),
+        (
+            "WITH item_orders AS "
+            "(SELECT MIN('O1') AS fake_id, order_id FROM order_items GROUP BY order_id) ",
+            "orders o JOIN item_orders i(order_id, original_id) USING (order_id)",
+            "300.00",
+        ),
+    ],
+    ids=[
+        "orders_cte_shadow",
+        "case_insensitive_orders_cte_shadow",
+        "items_cte_shadow_under_derived_join",
+        "cte_positional_columns",
+        "cte_reference_positional_columns",
+    ],
+)
+def test_shadowed_or_remapped_relations_cannot_inherit_public_semantics(
+    tmp_path, monkeypatch, prefix, source, expected
+):
+    lab = make_lab(tmp_path, monkeypatch)
+    sql = prefix + f"SELECT SUM(o.amount_minor * 0.01) AS revenue_usd FROM {source} WHERE {SCOPE}"
+    execution = lab.query(sql)
+    assert execution.result.rows[0][0].value == expected
+    assert Decimal(expected) != Decimal("200")
+    report, bundle = checked(lab, lab.claim_input(execution))
+    assert host_passes(bundle)
+    result = outcomes(bundle)
+    assert result["cell_binding"] == "pass"
+    assert {
+        result[name] for name in ("query_metric", "query_units", "query_grain", "query_population")
+    } == {"unknown"}
+    decision, reasons = evaluate_policy(report, bundle, "checked")
+    assert decision == "needs_review"
+    assert "unknown:query_population:settled_revenue_usd" in reasons
 
 
 def test_forged_cross_run_and_mismatched_references_fail_identity(tmp_path, monkeypatch):

@@ -1,0 +1,13 @@
+{
+  "image": {
+    "base_image": "python:3.12-slim@sha256:2b4f19dae3a777dfc3b76730bda1e82e1f66ab2a2686fa93ca78edbfb4f04ffe",
+    "client_version": "docker-process-1.0",
+    "image_id": "sha256:7afcc4b3a908da64495217dc43c5d76e39c2c5aa9bd6950bd0e9d6809d96fb7b",
+    "platform": "linux/amd64",
+    "policy_sha256": "84da12f0aaaeacc23c80249638b27b6699b7371637743cb1f0e84a5a0956f76c",
+    "requirements_sha256": "ae4c72c2b7e12c4cefa5b04c660ebe905e0a6546b60693f925828d53695970e8",
+    "schema_version": "1.0",
+    "worker_sha256": "15c76bc328f1e642ca1654669f9c927c1631940db93da02680d9ee8a42daec77"
+  },
+  "isolation_validation": "pending"
+}

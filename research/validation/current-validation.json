@@ -1,0 +1,502 @@
+{
+  "schema_version": "1.0",
+  "validated_at_utc": "2026-10-19T05:48:13.018922+00:00",
+  "validation_date_client": "2026-10-18",
+  "client_timezone": "America/Los_Angeles",
+  "source_commit": "64a240a82bfcb46ce9ee96af9d0152ea46591365",
+  "working_tree_dirty": true,
+  "source_identity_note": "The commit predates uncommitted repairs. The SHA-256 inventory identifies tested source and config bytes; report edits are excluded. Final enabled pytest, static checks, and build ran after the semantic repair.",
+  "source_sha256": {
+    ".github/workflows/ci.yml": "b96e931540b01bfce40d5de3acac979ffa15829d84d254b1abb48aeaab7c17c2",
+    ".python-version": "8dfda54ba2f66ab3a8ebab460f4338bbeea1fb1e0f85ce06fe3530aa3c64679b",
+    "benchmark/task_cards/settled_revenue.md": "ecc4f86e0f09cacf4e3dc4c20a560ce4c4efdabb2fb025a29d07848b9529cca4",
+    "evaluator/__init__.py": "e24442fa35271409e08f1ca3ab82a2e44cd6510a3c590685b257731511763c17",
+    "evaluator/__main__.py": "bcbc22cb4805883bd64aea2fe332ad8b178a43ab9a13d12139a83835e8bb0b4e",
+    "evaluator/milestone.py": "004492ed7ab976a554ebe5ef51b7c214814c91b1f9a4adeb7d89ab6e609627c6",
+    "evaluator/oracle.py": "9c9e8ae52453ce71ac8fdd5ab3433c8d580c1f4e0986ae56ca16caaee7db5090",
+    "experiment_specs/development.json": "2471559c6754eed6b063d645183b6b0162b000bff2018898d57cca42c62d0081",
+    "pyproject.toml": "b821ef928c111126332b4947c51b43fc66f9a486a6453c3f81cc0cf9ada706ff",
+    "sandbox/Dockerfile": "bc79e8cac21461f9a2c0b1b3ef11e163505e9b6fd010184f2a1ec703b62c6606",
+    "sandbox/requirements.txt": "ae4c72c2b7e12c4cefa5b04c660ebe905e0a6546b60693f925828d53695970e8",
+    "sandbox/worker.py": "15c76bc328f1e642ca1654669f9c927c1631940db93da02680d9ee8a42daec77",
+    "src/assay/__init__.py": "7bdef228cb69349faddb711ce841cbf4813706349ade31ec0af6b3db43d316b4",
+    "src/assay/__main__.py": "73f8ea0f19681a25771204fde7c74c36433392ff9461d6315387a41a00a053e7",
+    "src/assay/adapters/__init__.py": "f9e3921581b75a7b35dae2212088686caf60a0712b3e45afd9400c866942c4b8",
+    "src/assay/adapters/_traceframe_worker.py": "5f19db22c0c09d0e7fc2420b6d9c5de4d28ac192c9f4bd8598b9837c846121bd",
+    "src/assay/adapters/traceframe.py": "5ead04cb300e02db86a2c9836e8aa66f45b937cc182bdfe8da7bdce9bc524edb",
+    "src/assay/agents/__init__.py": "cc22fdb78d79038501154254ae74164953469a6a23e4053d345ab2d2083e6753",
+    "src/assay/agents/arms.py": "3f735926c5e3e4b6ca52e20afd0c899af78f20eba92801a033e3bfa47114af18",
+    "src/assay/agents/episode.py": "ee20ff831661286c3da519c13d85b75eb812b2eca3dd0bfe8bd5787ae0aec310",
+    "src/assay/agents/inspect_client.py": "bdc9b9990b325cddc4160b1344e6b7e62ef10ae86a86ac0f3b13a3d50a02ee9c",
+    "src/assay/agents/model.py": "f21cd709da20faf83a61e9570290942e0c5462712fed559da967cd1302e80713",
+    "src/assay/agents/tools.py": "4efdb0044db8c2c0215a5686c939a0d5834982fff1bae9f70a7f67efd13f41fc",
+    "src/assay/cli.py": "803c3cfe34a9a9d8c073689963f506897b637d61f0e6f09cb41eb7fc371a3792",
+    "src/assay/config.py": "19145c9ac1189567e4a25aa8dea0b12156b22141fea95f93aecb2571ff09e497",
+    "src/assay/contracts/__init__.py": "33cf0be0935587903aefb0c9c9fd7587f47b0c02c0701b52d3ff0b1cd3289275",
+    "src/assay/contracts/base.py": "67d16e2360710b451a458cb19554de922459ec1b35dd65b2e2ad3d2369db1921",
+    "src/assay/contracts/claim.py": "65868128191c2ce3909f72e4b4bdeda944cc32a379338535ec03bb044f91900a",
+    "src/assay/contracts/episode.py": "f51707a6cbe239db86b2ac40cf37709d2522f1ada4db682223721d5c7f4af24b",
+    "src/assay/contracts/execution.py": "7365cdd6ac85bf5f4f71446209f6fcf4508ddadb059139f45bc978e3afd82d92",
+    "src/assay/contracts/experiment.py": "d1f2d5350f600a5f866869f005404537358f6f5ac0a46be282741ff0f83edd77",
+    "src/assay/contracts/policy.py": "6a624c958f7540184eae7f93de292d0042eb8538b187af0c8fd025f6ce23ce90",
+    "src/assay/contracts/report.py": "ef95c12d4344894e071f458a96793f5c2710068cd5dd75d38e26c43b1f7cdef9",
+    "src/assay/contracts/review.py": "4db2ce36bc4510e821e8e85bd71296229421243adc6aef64a5358298226c7895",
+    "src/assay/contracts/snapshot.py": "711a8c482bba1fa8a10f024d82cdb3561003b590ab55468c69d16cb12927ea27",
+    "src/assay/contracts/task.py": "b932f2a577a92e139dfd6230d88519690a4e581dfbaee8ff4528a1ed95399218",
+    "src/assay/datasets/__init__.py": "484867b950e7cf4067d6054b6502f7cc153b36890c64fbec1605be5ed189b22b",
+    "src/assay/datasets/bundle.py": "c671edaa954f911c2510cd109bc1fc419377ac9dfb3fb9645988c2fe2bab8e65",
+    "src/assay/datasets/sales.py": "1a998cfc8fabb137c6d54c4884b878cfca9307dfc315d566f0fe4f301a4705a3",
+    "src/assay/diagnostics.py": "2b4c119028fae4c7a256a77ebbfe92682735b1542f06da3474eb9729d3c73c77",
+    "src/assay/evidence/__init__.py": "774cbbbb6c9b753b2919d0329b17ef13fd0ba198bceeb1dccc3158536f8c3799",
+    "src/assay/evidence/store.py": "c896683b8c3b1f73c6ebc34cd5a4073416824ca7519d81f876d7446ad768c458",
+    "src/assay/execution/__init__.py": "56071318ef879fe733dba8ed51eec6e4e4d4d41dd9f4c32e72d42c136ea01624",
+    "src/assay/execution/docker.py": "798ae4c96e45130e47cb04dbaffe0a082cfd42ab7de3eb10b31453ae11fc9f5f",
+    "src/assay/gateway/__init__.py": "78a7ec147ca2e064a3ab0a3239516f289159b20d31a179f560f8d251f5d1dd72",
+    "src/assay/gateway/policy.py": "84da12f0aaaeacc23c80249638b27b6699b7371637743cb1f0e84a5a0956f76c",
+    "src/assay/gateway/service.py": "6a6e40dfd36a2c59d173d6698a3dec28071d43233ead475a4c86461c3a47a826",
+    "src/assay/publication/__init__.py": "8352852effd9b27e86ac6f84985e449cce2dff8c143de48c22cc0e9f0da02ab6",
+    "src/assay/publication/rendering.py": "9910bfdaf24b05c1f3bd69fd81233fc0d9fa30f475b753703743d5cc4b1cb320",
+    "src/assay/publication/service.py": "12ba6c8646128869e05d3bcde80c2503b45defe39f8ad90e2e8a1d1b29d582d8",
+    "src/assay/review/__init__.py": "dbab288a6f2a78491ad2a24977ad12d805557287e0bc90618e4cc8a5c01de3f7",
+    "src/assay/review/service.py": "1bd1b67dc7b5e7ab45ba49e538a92a122a1bb75ca4a982ee3104b549161c74d2",
+    "src/assay/verification/__init__.py": "34e74512b45afa44645f834946b928e0a301378fcf1c7d66fc31b38f68dc0b7e",
+    "src/assay/verification/semantics.py": "167b0ec7ebbee378898b83bcb828f068bf2e9a91f1a57012288077405201334d",
+    "src/assay/verification/service.py": "9e8698a9e1b222cabf2c782e1b7d5864b98c6a8cc36e3fea9ce10107ba279ede",
+    "tests/phase3_support.py": "2ecf40c3de8702de5f83a669a056b7a5756129094a960f084f1726ef3afa0b80",
+    "tests/test_arms.py": "b1d746bd06d954dbda9efafa8ac122ee6e18651c57dfdc2ec089d4e2f0e71c5e",
+    "tests/test_cli.py": "94ba2b381024ee2c035928dd23831d1d1b30df9906098932e6c5d05e7ccdba54",
+    "tests/test_config.py": "fa63959dc00821a884828dfab8df42741c5172d45df96f0802facb205bb6ce65",
+    "tests/test_contracts.py": "4086df3e260b692adcd3690b385247f26c58a38aa3aaff8322502086e7bf374b",
+    "tests/test_datasets.py": "4e3161ede553d5cb20a02a54560c98dbb44c47db0e1bf170274ecd0c364b016e",
+    "tests/test_diagnostics.py": "a0e92b388cc16af53ac4f299e6931f82fd7d8efe6e58b1a9a1f149a7b524e41a",
+    "tests/test_episodes.py": "2ea553cc74e04021c64588115df3660ffd1f9d50340307c2c4b9e5f67e189982",
+    "tests/test_evidence.py": "88ae537fca6fa6b32c26103aa89ffc75098beb3a7c6505e7d19aec5206599223",
+    "tests/test_evidence_phase3.py": "17438e9133effee77fd0754e52a3fe85a4d290ff9df01031b437efb13ebc7732",
+    "tests/test_execution_client.py": "4a2b4f0c58c52d5918d42e6b17e90130d19ef3285d3a49c6a88d0d360bd2f6d3",
+    "tests/test_gateway.py": "f245395fce5e9db33ae638e613cf1281aa2874624bce7b683006b2437f31c4c2",
+    "tests/test_inspect_client.py": "b58a0038c36169f065dd7891b4ffcc74fcd532e76d9001e40d4110945b1c66ba",
+    "tests/test_milestone.py": "f0b43230180ed4813723b97b1fe7a47811eba740d3f94e82196ab81c8269907e",
+    "tests/test_oracle.py": "c47a29d52332b67f79ac8d3fa64769a782d5ad18c35dc25a5a1b6da364158107",
+    "tests/test_publication.py": "647864623530c05012575ff12510543b30a30d6afad93d4fdf647c555279a4bf",
+    "tests/test_publication_recovery.py": "fc4a46d738ab21c18ef12bd1c12c2a6d8399904e108386c38dff36b4b07038f7",
+    "tests/test_rendering.py": "a1cd5d4f4d143196cfb226d84566370ee526b30469a01fbc590c9a8b17d6eb7d",
+    "tests/test_review.py": "0b9e57e390cc5b149257be134c36232e5c2db6a7722de8b81e4ba7319c794725",
+    "tests/test_sandbox_integration.py": "422fffd7a14ebdca6a86b044645eb74787bd342193ed0c89ae18daf0b31b5ac7",
+    "tests/test_sql_policy.py": "d5c75dcc7e2f0db098e9ddfdb4e052fc7eec44e58a962e7345580c28d1c7de0f",
+    "tests/test_traceframe_adapter.py": "fc6ea822ac5d2eaad5571ef916983a8f85d7bc9f41d9579873afab0f237c3b9a",
+    "tests/test_verification.py": "e25cb6ad1d0b263bda45ed178ca073e852b0e292c0e2c8d2e1c5c64228d9ea66",
+    "tests/test_worker_serialization.py": "203c395b6267b455d3e2dccf3f5a2c090e294eb4fef24e6ef1c16ca1dcf4d871",
+    "uv.lock": "e5fb82a822330e98de9ad3a9281715059c902c0e5856de0b2eaca97a9fd42431"
+  },
+  "source_file_count": 80,
+  "environment": {
+    "python_version": "3.12.6",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "uv_version": "uv 0.6.5 (bcbcd0a1e 2025-03-06)",
+    "dependencies": {
+      "pydantic": "2.14.1",
+      "pydantic-core": "2.50.1",
+      "sqlglot": "30.23.0",
+      "duckdb": "1.5.6",
+      "hypothesis": "6.170.0",
+      "mypy": "1.20.2",
+      "pytest": "8.4.2",
+      "ruff": "0.17.1",
+      "hatchling": "1.32.4",
+      "traceframe": "0.1.0",
+      "inspect-ai": "0.3.281",
+      "tzdata": "2026.5"
+    },
+    "traceframe_direct_url": {
+      "url": "https://github.com/EltonChang1/traceframe.git",
+      "vcs_info": {
+        "vcs": "git",
+        "commit_id": "422befdcbadb95024b75b2e4ac381cb6716b97c3",
+        "requested_revision": "422befdcbadb95024b75b2e4ac381cb6716b97c3"
+      }
+    },
+    "docker_client_version": "29.8.2",
+    "docker_server_version": "29.8.2",
+    "docker_context": "desktop-linux",
+    "docker_server_os": "linux",
+    "docker_server_arch": "amd64",
+    "docker_kernel": "6.18.54.1-microsoft-standard-WSL2"
+  },
+  "live_provider_calls": 0,
+  "paid_model_calls": 0,
+  "model_call_scope": "ScriptedModel and Inspect mockllm/model tests only; mock/scripted API invocations are not counted as live-provider calls.",
+  "commands": [
+    {
+      "command": "uv sync --locked --extra traceframe --extra inspect",
+      "exit_code": 0,
+      "scope": "Locked environment, optional integrations installed"
+    },
+    {
+      "command": "uv run --locked --extra traceframe --extra inspect ruff check .",
+      "exit_code": 0,
+      "scope": "Post-repair check; initial import-order failure recorded below"
+    },
+    {
+      "command": "uv run --locked --extra traceframe --extra inspect ruff format --check .",
+      "exit_code": 0,
+      "formatted_files": 90
+    },
+    {
+      "command": "uv run --locked --extra traceframe --extra inspect python -m mypy",
+      "exit_code": 0,
+      "source_files": 48
+    },
+    {
+      "command": "uv run --locked --extra traceframe --extra inspect python -m pytest -q --junitxml=research/validation/offline-junit.xml",
+      "environment": {
+        "ASSAY_TRACEFRAME_TESTS": "1",
+        "ASSAY_INSPECT_TESTS": "1",
+        "ASSAY_DOCKER_TESTS": null
+      },
+      "exit_code": 0,
+      "phase": "Before semantic repair, after import-order fix",
+      "result": {
+        "tests": 437,
+        "errors": 0,
+        "failures": 0,
+        "skipped": 29,
+        "passed": 408,
+        "junit_duration_seconds": 53.976,
+        "started_at": [
+          "2026-10-18T22:44:12.808945-07:00"
+        ],
+        "skipped_cases": [
+          {
+            "class": "tests.test_gateway",
+            "name": "test_frozen_snapshot_is_readable_by_the_worker_uid_under_a_private_umask",
+            "reason": "POSIX modes reach the worker via its bind mount"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_real_queries_preserve_exact_decimal_and_separate_correctness[base-SELECT SUM(o.amount_minor * 0.01) AS revenue_usd FROM orders o WHERE o.status = 'settled' AND o.currency = 'USD' AND o.occurred_at >= TIMESTAMPTZ '2026-01-01 00:00:00+00' AND o.occurred_at < TIMESTAMPTZ '2026-04-01 00:00:00+00'-200.00-True]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_real_queries_preserve_exact_decimal_and_separate_correctness[base-SELECT SUM(o.amount_minor * 0.01) AS revenue_usd FROM orders o JOIN order_items i USING (order_id) WHERE o.status = 'settled' AND o.currency = 'USD' AND o.occurred_at >= TIMESTAMPTZ '2026-01-01 00:00:00+00' AND o.occurred_at < TIMESTAMPTZ '2026-04-01 00:00:00+00'-340.00-False]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_real_queries_preserve_exact_decimal_and_separate_correctness[equal_amount-SELECT SUM(o.amount_minor * 0.01) AS revenue_usd FROM orders o WHERE o.status = 'settled' AND o.currency = 'USD' AND o.occurred_at >= TIMESTAMPTZ '2026-01-01 00:00:00+00' AND o.occurred_at < TIMESTAMPTZ '2026-04-01 00:00:00+00'-300.00-True]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_real_queries_preserve_exact_decimal_and_separate_correctness[equal_amount-SELECT SUM(DISTINCT o.amount_minor * 0.01) AS revenue_usd FROM orders o JOIN order_items i USING (order_id) WHERE o.status = 'settled' AND o.currency = 'USD' AND o.occurred_at >= TIMESTAMPTZ '2026-01-01 00:00:00+00' AND o.occurred_at < TIMESTAMPTZ '2026-04-01 00:00:00+00'-200.00-False]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_real_worker_does_not_return_a_truncated_row_result",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_worker_revalidates_denied_queries_without_host_admission[SELECT * FROM read_csv('/etc/passwd')]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_worker_revalidates_denied_queries_without_host_admission[SELECT * FROM read_parquet('https://example.invalid/private.parquet')]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_worker_revalidates_denied_queries_without_host_admission[SELECT * FROM '/data/tables/orders.csv']",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_worker_revalidates_denied_queries_without_host_admission[SELECT COALESCE((SELECT content FROM read_text('/private/oracle')), 'x')]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_worker_revalidates_denied_queries_without_host_admission[SELECT current_setting('home_directory')]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_worker_revalidates_denied_queries_without_host_admission[SET enable_external_access = true]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_worker_revalidates_denied_queries_without_host_admission[PRAGMA database_list]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_worker_revalidates_denied_queries_without_host_admission[INSTALL httpfs]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_worker_revalidates_denied_queries_without_host_admission[ATTACH '/private/oracle.db' AS oracle]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_worker_revalidates_denied_queries_without_host_admission[COPY orders TO '/tmp/exfil.csv']",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_worker_revalidates_denied_queries_without_host_admission[SELECT * FROM orders; SELECT * FROM customers]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_worker_revalidates_denied_queries_without_host_admission[SELECT * FROM customers]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_worker_revalidates_denied_queries_without_host_admission[SELECT * FROM private_canonical_events]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_worker_cannot_load_an_approved_table_absent_from_its_mount",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_real_runtime_has_the_declared_filesystem_identity_and_network_boundary",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_real_timeout_and_cancellation_remove_the_running_container[timeout]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_real_timeout_and_cancellation_remove_the_running_container[cancelled]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_real_cpu_saturation_is_throttled_without_blocking_another_worker",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_real_resource_exhaustion_stays_inside_its_container[memory]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_real_resource_exhaustion_stays_inside_its_container[disk]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_real_resource_exhaustion_stays_inside_its_container[processes]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_real_output_byte_overflow_removes_container_without_a_truncated_result[stdout]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          },
+          {
+            "class": "tests.test_sandbox_integration",
+            "name": "test_real_output_byte_overflow_removes_container_without_a_truncated_result[stderr]",
+            "reason": "Set ASSAY_DOCKER_TESTS=1 to require the real Linux Docker boundary suite"
+          }
+        ],
+        "docker": {
+          "collected": 28,
+          "skipped": 28,
+          "passed": 0
+        },
+        "console_duration_seconds": 54.15,
+        "warning_count": 4
+      }
+    },
+    {
+      "command": "uv run --locked --extra traceframe --extra inspect python -m evaluator | Set-Content -Encoding utf8 research/validation/milestone.json",
+      "exit_code": 0,
+      "checks_run": 10,
+      "checks_passed": 10
+    },
+    {
+      "command": "uv run --locked --extra traceframe --extra inspect python -m assay doctor --require-docker",
+      "exit_code": 0,
+      "scope": "Availability only, before worker provision; Docker ready, worker pending; isolation unassessed"
+    },
+    {
+      "command": "uv run --locked --extra traceframe --extra inspect python -m assay worker build | Set-Content -Encoding utf8 research/validation/worker-build.json",
+      "exit_code": 0
+    },
+    {
+      "command": "uv run --locked --extra traceframe --extra inspect python -m assay worker smoke | Set-Content -Encoding utf8 research/validation/worker-smoke.json",
+      "exit_code": 0
+    },
+    {
+      "command": "uv run --locked --extra traceframe --extra inspect python -m pytest -q --junitxml=research/validation/full-junit.xml",
+      "environment": {
+        "ASSAY_DOCKER_TESTS": "1",
+        "ASSAY_TRACEFRAME_TESTS": "1",
+        "ASSAY_INSPECT_TESTS": "1"
+      },
+      "exit_code": 0,
+      "phase": "After semantic repair and import-order fix",
+      "result": {
+        "tests": 442,
+        "errors": 0,
+        "failures": 0,
+        "skipped": 1,
+        "passed": 441,
+        "junit_duration_seconds": 111.077,
+        "started_at": [
+          "2026-10-18T22:45:46.667385-07:00"
+        ],
+        "skipped_cases": [
+          {
+            "class": "tests.test_gateway",
+            "name": "test_frozen_snapshot_is_readable_by_the_worker_uid_under_a_private_umask",
+            "reason": "POSIX modes reach the worker via its bind mount"
+          }
+        ],
+        "docker": {
+          "collected": 28,
+          "skipped": 0,
+          "passed": 28
+        },
+        "console_duration_seconds": 111.25,
+        "warning_count": 4
+      }
+    },
+    {
+      "command": "uv build --no-sources",
+      "exit_code": 0,
+      "phase": "Repeated after semantic repair",
+      "outputs": [
+        "dist/assay-0.0.1.tar.gz",
+        "dist/assay-0.0.1-py3-none-any.whl"
+      ]
+    }
+  ],
+  "primary_result": {
+    "tests": 442,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 1,
+    "passed": 441,
+    "junit_duration_seconds": 111.077,
+    "started_at": [
+      "2026-10-18T22:45:46.667385-07:00"
+    ],
+    "skipped_cases": [
+      {
+        "class": "tests.test_gateway",
+        "name": "test_frozen_snapshot_is_readable_by_the_worker_uid_under_a_private_umask",
+        "reason": "POSIX modes reach the worker via its bind mount"
+      }
+    ],
+    "docker": {
+      "collected": 28,
+      "skipped": 0,
+      "passed": 28
+    },
+    "console_duration_seconds": 111.25,
+    "warning_count": 4
+  },
+  "milestone": {
+    "checks_run": 10,
+    "checks_passed": 10,
+    "numerically_correct_cases": 7,
+    "expected_incorrect_cases": 3,
+    "publication_boundary_tested": false,
+    "untrusted_execution_boundary_tested": false,
+    "scope": "exposed development fixtures; developer-authored SQL only"
+  },
+  "worker": {
+    "base_image": "python:3.12-slim@sha256:2b4f19dae3a777dfc3b76730bda1e82e1f66ab2a2686fa93ca78edbfb4f04ffe",
+    "client_version": "docker-process-1.0",
+    "image_id": "sha256:7afcc4b3a908da64495217dc43c5d76e39c2c5aa9bd6950bd0e9d6809d96fb7b",
+    "platform": "linux/amd64",
+    "policy_sha256": "84da12f0aaaeacc23c80249638b27b6699b7371637743cb1f0e84a5a0956f76c",
+    "requirements_sha256": "ae4c72c2b7e12c4cefa5b04c660ebe905e0a6546b60693f925828d53695970e8",
+    "schema_version": "1.0",
+    "worker_sha256": "15c76bc328f1e642ca1654669f9c927c1631940db93da02680d9ee8a42daec77"
+  },
+  "remaining_assay_containers": [],
+  "artifacts": {
+    "offline-junit.xml": {
+      "sha256": "0449c3746d81292646ea7d43efe3d18c7004bd2956e8a92bdaf54852446696ef",
+      "bytes": 69438
+    },
+    "full-junit.xml": {
+      "sha256": "6d5e2f3ff37f210044b65ff2d4262915d758059c68ad4a0594fcfa9c481208f6",
+      "bytes": 62208
+    },
+    "milestone.json": {
+      "sha256": "951c4b1cd396ae691ed6dd21da04eccd62153704d8bf88746a9615744dabc19f",
+      "bytes": 7404
+    },
+    "worker-build.json": {
+      "sha256": "43a5e47edd003392484ac773167bacab65a34b720112fe17fcc60cd3ed960adb",
+      "bytes": 648
+    },
+    "worker-smoke.json": {
+      "sha256": "192e3f51fc6a2b6f69441c14bca1c21757ab1fa2348d928a7aad36fc2a4a499b",
+      "bytes": 1410
+    }
+  },
+  "initial_failures_and_repairs": [
+    {
+      "failure": "Ruff I001 in tests/test_arms.py after package rename",
+      "repair": "Moved evaluator import after assay imports, no behavior change",
+      "affected_file": "tests/test_arms.py"
+    },
+    {
+      "failure": "Existing pytest.exe and mypy.exe launchers failed to canonicalize old interpreter path",
+      "diagnosis": "pytest.exe embedded former repository directory traceframe-safety-lab; installed modules loaded normally",
+      "workaround": "Invoke python -m pytest and python -m mypy in the same locked environment; no dependency change"
+    },
+    {
+      "failure": "Constructed CTE-shadowing and explicit-column-alias examples returned incorrect numerical results but passed mandatory query semantics",
+      "repair": "Return unknown for public-table CTE shadowing or explicit alias-column remapping; five new regressions",
+      "affected_files": [
+        "src/assay/verification/semantics.py",
+        "tests/test_verification.py"
+      ]
+    }
+  ],
+  "historical_artifact": {
+    "path": "docs/validation/docker-validation.json",
+    "sha256": "312d05cb2ec9f026b97bdd2080c1a4274ea55cc4c3ee3750891277e56782ec1e",
+    "recorded_commit": "ce620948c5e13e89811cb7c1f58826f84be301e2",
+    "recorded_working_tree_dirty": true,
+    "recorded_result": {
+      "duration_seconds": 98.59,
+      "errors": 0,
+      "failures": 0,
+      "passed": 424,
+      "skipped": 0,
+      "tests": 424
+    },
+    "recorded_hashes": 74,
+    "current_exact_matches": 23,
+    "current_differences": 51,
+    "note": "Historical evidence preserved, not overwritten; current fresh results are separate."
+  },
+  "limits": [
+    "Development regressions and initial sales-schema container boundary checks, not comparative safety-study results.",
+    "No real analyst/reviewer provider, held-out confirmation, effect size, or confidence interval measured.",
+    "Final-test actor/evaluator isolation, spending reservations, combined oversight caps, lease expiry, and gateway admission fencing remain open.",
+    "The sole full-run skip is a POSIX permission-mode regression inapplicable to Windows.",
+    "Resource probes are fixed developer-authored diagnostics using production container arguments.",
+    "The offline harness substitutes in-process DuckDB for Docker dispatch; isolation evidence comes from separately enabled real Docker cases."
+  ]
+}

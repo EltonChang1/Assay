@@ -1,10 +1,12 @@
 {
   "schema_version": "1.0",
   "source": "research/paper.md",
-  "source_sha256": "cf59e72b436a64c0858a0c7e3abcb6692cd779d5c30d4ccdb61105de8624d5f7",
+  "source_sha256": "d49a038a350ae15eb582273ae81230392ebf2683efc55f2f79cfb1891bb6eb4f",
+  "builder_sha256": "cae4bbc1e00466fd728a99d4dbf89307cdab21c58618138dc63354695f016b20",
+  "figure_evidence_sha256": "951c4b1cd396ae691ed6dd21da04eccd62153704d8bf88746a9615744dabc19f",
   "output": "output/pdf/assay-technical-report.pdf",
-  "output_sha256": "bc215c977199d12062265b95704aaa5b8c0c0195bc0d89def9c141b6d92a5292",
-  "pages": 24,
-  "extracted_characters": 101083,
+  "output_sha256": "ba08d1cd1cdc58c84e44ac4d38059642d51bb27e90e3ee96799f927cf695d865",
+  "pages": 16,
+  "extracted_characters": 54220,
   "visual_inspection": "required separately; this record only checks extraction"
 }

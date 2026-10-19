@@ -1,0 +1,40 @@
+{
+  "schema_version": "assay-literature-review-1.0",
+  "review_date_client": "2026-10-19",
+  "client_timezone": "America/Los_Angeles",
+  "review_type": "targeted primary-source narrative review, not exhaustive systematic review",
+  "core_papers": 40,
+  "core_counts": {
+    "conference-requirements.md": 0,
+    "control-and-agents.md": 14,
+    "data-and-verification.md": 14,
+    "evaluation-and-foundations.md": 12,
+    "README.md": 0,
+    "ACADEMIC_WRITING.md": 0,
+    "SUBMISSION_OUTLINE.md": 0
+  },
+  "supplementary_screened_papers": 8,
+  "verified_conference_cycles": [
+    "NeurIPS 2026 main",
+    "ICML 2026 main",
+    "ICLR 2027",
+    "SIGMOD 2027 research",
+    "PVLDB volume 20"
+  ],
+  "external_links": 104,
+  "missing_local_links": [],
+  "reading_depth": "Per-entry inspection records; abstract-only and selective full-text cases distinguished. No independent paper replication.",
+  "new_paid_calls": 0,
+  "files_sha256": {
+    "research/literature/conference-requirements.md": "0998a5d036441c6cc3d108b59dd8d1c4fc9b34174ee42023c4eecadc4ca3bf82",
+    "research/literature/control-and-agents.md": "bab30dcbc9d2a7172caf6ab2680028a5d257682545a845db4626328f516a3b22",
+    "research/literature/data-and-verification.md": "933fff01a1e83ef22962577fe002d619f4afa5b0d3036d32c7f06b3fa7ab870f",
+    "research/literature/evaluation-and-foundations.md": "91fe020930f0bc7d46b313a1e36f9c3bcf6f5a46c04e37b6deae2a460c4f90a4",
+    "research/literature/README.md": "aa8e74ef33fef63f872948bf5826660228fd735871836eb30698873f069545a0",
+    "research/ACADEMIC_WRITING.md": "16ff2cbaac982a56f446e36a7818cceb5a7b6480f439baad68e675c964f09684",
+    "research/SUBMISSION_OUTLINE.md": "7fef011aa87246d47737f42112284d47b208a2098779570fcaced11a0e9a57ec"
+  },
+  "canonical_paper_sha256": "d49a038a350ae15eb582273ae81230392ebf2683efc55f2f79cfb1891bb6eb4f",
+  "paper_pdf_sha256": "ba08d1cd1cdc58c84e44ac4d38059642d51bb27e90e3ee96799f927cf695d865",
+  "manuscript_revision_note": "Reorganized as a date-free technical report; completed system results lead and the unexecuted comparative study is confined to Appendix B."
+}

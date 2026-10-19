@@ -1,8 +1,2 @@
-* text=auto
-*.py text eol=lf
-*.toml text eol=lf
-*.lock text eol=lf
-*.yml text eol=lf
-*.md text eol=lf
-Dockerfile text eol=lf
-sandbox/requirements.txt text eol=lf
+# Generated PDF streams are binary artifacts, not whitespace-checkable source.
+*.pdf binary

@@ -1,5 +1,7 @@
-# linux/amd64 CPython 3.12 worker; exact wheel hashes from uv.lock.
+# linux/amd64 CPython 3.12 worker; exact wheel pins and SHA-256 hashes.
 duckdb==1.5.6 \
     --hash=sha256:bc9619ed7d4ffa117b5155d84b44794366bb6635178d78ed5e13a6024845c757
+pytz==2026.5 \
+    --hash=sha256:e658af3757f9e26a9d25dd2aff38335acd92bc9104f890a894b2c1ba28311b03
 sqlglot==30.23.0 \
     --hash=sha256:b5a645722cb4c6b649e9131b94830d9df9a557e87be63713179d848320f2baa1
