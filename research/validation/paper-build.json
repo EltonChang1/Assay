@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0",
+  "source": "research/paper.md",
+  "source_sha256": "cf59e72b436a64c0858a0c7e3abcb6692cd779d5c30d4ccdb61105de8624d5f7",
+  "output": "output/pdf/assay-technical-report.pdf",
+  "output_sha256": "bc215c977199d12062265b95704aaa5b8c0c0195bc0d89def9c141b6d92a5292",
+  "pages": 24,
+  "extracted_characters": 101083,
+  "visual_inspection": "required separately; this record only checks extraction"
+}
